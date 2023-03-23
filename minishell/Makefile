@@ -1,4 +1,4 @@
-SRCS		=		main.c minishell_exec.c
+SRCS		=		main.c minishell_exec.c utils_signal.c
 
 LIBFT		=		-I./libft
 

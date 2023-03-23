@@ -22,7 +22,7 @@
 # include <signal.h>
 # include "./libft/libft.h"
 
-typedef struct s_arg
+struct s_arg
 {
 	pid_t	pid;
 	char	*cmd;
@@ -30,10 +30,14 @@ typedef struct s_arg
 	char	**cmd_paths;
 	char	**cmd_args;
 	char	**args;
-}t_arg;
+	int		quit_flag;
+}	g_arg;
 
 char	*find_path(char **envp);
 char	*get_cmd(char **paths, char *cmd);
-int		cmd_process(t_arg *arg, char **envp, char *input);
+int		cmd_process(char **envp, char *input);
+void	sigquit_voider(int signal);
+void	eof_control(char *line);
+void	sigint_voider(int signal);
 
 #endif

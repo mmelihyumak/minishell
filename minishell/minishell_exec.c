@@ -21,22 +21,22 @@ char	*find_path(char **envp)
 	return (*envp + 5);
 }
 
-int	cmd_process(t_arg *arg, char **envp, char *input)
+int	cmd_process(char **envp, char *input)
 {
 	char	*x;
 
-	arg->pid = fork();
-	if (arg->pid == 0)
+	g_arg.pid = fork();
+	if (g_arg.pid == 0)
 	{
-		arg->cmd_args = &arg->args[0];
-		arg->cmd = get_cmd(arg->cmd_paths, arg->cmd_args[0]);
-		if (!arg->cmd)
+		g_arg.cmd_args = &g_arg.args[0];
+		g_arg.cmd = get_cmd(g_arg.cmd_paths, g_arg.cmd_args[0]);
+		if (!g_arg.cmd)
 		{
 			exit(1);
 		}
-		execve(arg->cmd, arg->cmd_args, envp);
+		execve(g_arg.cmd, g_arg.cmd_args, envp);
 	}
-	waitpid(arg->pid, NULL, 0);
+	waitpid(g_arg.pid, NULL, 0);
 	return (0);
 }
 

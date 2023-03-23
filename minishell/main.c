@@ -16,19 +16,23 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_arg	*arg;
+	//t_arg	*arg;
 	char	*input;
 
-	arg = malloc(sizeof(t_arg));
-	arg->paths = find_path(envp);
-	arg->cmd_paths = ft_split(arg->paths, ':');
+	signal(SIGINT, &sigint_voider);
+	signal(SIGQUIT, &sigquit_voider);
+	//arg = malloc(sizeof(g_arg));
+	g_arg.paths = find_path(envp);
+	g_arg.cmd_paths = ft_split(g_arg.paths, ':');
 	while (1)
 	{
 		input = readline("minishell: ");
-		add_history(input);
-		arg->args = ft_split(input, ' ');
-		cmd_process(arg, envp, input);
-		
+		eof_control(input);
+		if (*input != '\n' && *input != '\0')
+			add_history(input);
+		g_arg.args = ft_split(input, ' ');
+		cmd_process(envp, input);
+		g_arg.quit_flag = 0;
 	}
 	return (0);
 }

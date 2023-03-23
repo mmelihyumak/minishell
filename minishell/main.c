@@ -6,13 +6,11 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:29 by melih             #+#    #+#             */
-/*   Updated: 2023/03/23 03:44:49 by melih            ###   ########.fr       */
+/*   Updated: 2023/03/23 03:46:37 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-
 
 int	main(int argc, char **argv, char **envp)
 {

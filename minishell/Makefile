@@ -18,7 +18,7 @@ $(LIBFT):
 			make bonus -C ./libft
 
 $(NAME):	$(OBJS) $(LIBFT)
-				$(CC) $(CFLAGS) -lreadline $(OBJS) libft/libft.a  -o $(NAME)
+				$(CC) $(CFLAGS) -lreadline $(OBJS) libft/libft.a  -o $(NAME) && ./$(NAME)
 
 clean:
 				$(RM) $(OBJS)

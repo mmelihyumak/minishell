@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:29 by melih             #+#    #+#             */
-/*   Updated: 2023/03/23 02:30:26 by melih            ###   ########.fr       */
+/*   Updated: 2023/03/23 03:44:49 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,15 @@
 
 int	main(int argc, char **argv, char **envp)
 {
-	//t_arg	*arg;
 	char	*input;
 
 	signal(SIGINT, &sigint_voider);
 	signal(SIGQUIT, &sigquit_voider);
-	//arg = malloc(sizeof(g_arg));
 	g_arg.paths = find_path(envp);
 	g_arg.cmd_paths = ft_split(g_arg.paths, ':');
 	while (1)
 	{
-		input = readline("minishell: ");
+		input = readline("minishell> ");
 		eof_control(input);
 		if (*input != '\n' && *input != '\0')
 			add_history(input);

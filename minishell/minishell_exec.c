@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 02:25:38 by melih             #+#    #+#             */
-/*   Updated: 2023/03/23 02:30:10 by melih            ###   ########.fr       */
+/*   Updated: 2023/03/23 03:43:17 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	cmd_process(char **envp, char *input)
 		g_arg.cmd = get_cmd(g_arg.cmd_paths, g_arg.cmd_args[0]);
 		if (!g_arg.cmd)
 		{
+			printf("minishell: %s: command not found\n", g_arg.cmd_args[0]);
 			exit(1);
 		}
 		execve(g_arg.cmd, g_arg.cmd_args, envp);

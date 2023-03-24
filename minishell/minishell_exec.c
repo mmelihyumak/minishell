@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 02:25:38 by melih             #+#    #+#             */
-/*   Updated: 2023/03/23 03:46:59 by melih            ###   ########.fr       */
+/*   Updated: 2023/03/24 03:59:02 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,31 @@
 
 char	*find_path(char **envp)
 {
-	while (ft_strncmp("PATH", *envp, 4))
+	int	i;
+
+	i = -1;
+	while (envp[++i])
 	{
-		envp++;
+		if (!ft_strncmp("PATH", envp[i], 4))
+			return (envp[i] + 5);
 	}
-	return (*envp + 5);
+	return (0);
 }
 
-int	cmd_process(char **envp, char *input)
+char	*find_pwd(char **envp)
+{
+	int	i;
+
+	i = -1;
+	while (envp[++i])
+	{
+		if (!ft_strncmp("PWD", envp[i], 3))
+			return (envp[i] + 4);
+	}
+	return (0);
+}
+
+int	cmd_process(char **envp)
 {
 	char	*x;
 

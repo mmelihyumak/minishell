@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:29 by melih             #+#    #+#             */
-/*   Updated: 2023/03/24 04:02:54 by melih            ###   ########.fr       */
+/*   Updated: 2023/03/25 07:12:02 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,6 @@ int	get_first_arg(void)
 	{
 		printf("exit\n");
 		exit(0);
-	}
-	else if (!ft_strncmp("<", g_arg.args[0], 1))
-	{
-		if (!g_arg.args[1])
-			printf("minishell: syntax error near unexpected token `newline'\n");
-		else
-			open_folder();
-	}
-	else
-	{
-		cmd_process(g_arg.envp);
 	}
 	return (0);
 }
@@ -46,11 +35,19 @@ int	main(int argc, char **argv, char **envp)
 		input = readline("minishell$ ");
 		eof_control(input);
 		if (*input != '\n' && *input != '\0')
+		{
 			add_history(input);
-		g_arg.args = ft_split(input, ' ');
-		g_arg.envp = envp;
-		get_first_arg();
-		g_arg.quit_flag = 0;
+			g_arg.args = ft_split(input, ' ');
+			g_arg.envp = envp;
+			get_first_arg();
+			cmd_process(envp);
+			g_arg.quit_flag = 0;
+		}
+		else if (*input == 0)
+		{
+			free(input);
+			//system("leaks minishell");
+		}
 	}
 	return (0);
 }

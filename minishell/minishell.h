@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:46 by melih             #+#    #+#             */
-/*   Updated: 2023/03/24 04:02:39 by melih            ###   ########.fr       */
+/*   Updated: 2023/03/25 07:12:06 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ struct s_arg
 	char	*paths;
 	char	**cmd_paths;
 	char	**cmd_args;
+	char	**args_temp;
 	char	**args;
 	char	**envp;
 	int		quit_flag;
@@ -43,7 +44,5 @@ void	sigquit_voider(int signal);
 void	eof_control(char *line);
 void	sigint_voider(int signal);
 char	*find_pwd(char **envp);
-int		set_pwd(void);
-int		open_folder(void);
 
 #endif

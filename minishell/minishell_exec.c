@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 02:25:38 by melih             #+#    #+#             */
-/*   Updated: 2023/03/25 06:49:45 by melih            ###   ########.fr       */
+/*   Updated: 2023/03/26 04:04:45 by uyilmaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	cmd_process(char **envp)
 	if (g_arg.pid == 0)
 	{
 		g_arg.cmd_args = &g_arg.args[0];
+		if (g_arg.args[0][0] == '/')
+			execve(g_arg.args[0], g_arg.cmd_args, envp);
 		g_arg.cmd = get_cmd(g_arg.cmd_paths, g_arg.cmd_args[0]);
 		if (!g_arg.cmd)
 		{

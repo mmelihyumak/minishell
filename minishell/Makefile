@@ -1,4 +1,4 @@
-SRCS		=		main.c minishell_exec.c utils_signal.c file_process.c
+SRCS		=		main.c minishell_exec.c utils_signal.c file_process.c ft_smart_split.c
 
 LIBFT		=		-I./libft
 

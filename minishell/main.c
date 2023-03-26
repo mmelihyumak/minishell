@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:29 by melih             #+#    #+#             */
-/*   Updated: 2023/03/25 07:12:02 by melih            ###   ########.fr       */
+/*   Updated: 2023/03/26 03:53:17 by uyilmaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	print_input()
+{
+	int	i;
+
+	i = -1;
+	while (g_arg.args[++i])
+	{
+		printf("%s\n", g_arg.args[i]);
+	}
+}
 
 int	get_first_arg(void)
 {
@@ -20,6 +31,16 @@ int	get_first_arg(void)
 		exit(0);
 	}
 	return (0);
+}
+
+void	free_split()
+{
+	int	i;
+
+	i = -1;
+	while (g_arg.args[++i])
+		free(g_arg.args[i]);
+	free(g_arg.args);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -37,11 +58,13 @@ int	main(int argc, char **argv, char **envp)
 		if (*input != '\n' && *input != '\0')
 		{
 			add_history(input);
-			g_arg.args = ft_split(input, ' ');
+			g_arg.args = ft_split_quotes(input);
+			//print_input();
 			g_arg.envp = envp;
 			get_first_arg();
 			cmd_process(envp);
 			g_arg.quit_flag = 0;
+			free_split();
 		}
 		else if (*input == 0)
 		{

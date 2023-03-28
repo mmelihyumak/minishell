@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 02:29:01 by muyumak           #+#    #+#             */
-/*   Updated: 2023/03/28 03:27:36 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/03/28 03:35:42 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,9 @@ void	exec_cd(void)
 		chdir(env_pwd);
 	}
 	printf("%s\n", env_pwd);
+}
+
+void	exec_pwd(void)
+{
+	
 }

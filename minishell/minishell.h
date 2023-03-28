@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:46 by melih             #+#    #+#             */
-/*   Updated: 2023/03/26 01:31:39 by uyilmaz          ###   ########.fr       */
+/*   Updated: 2023/03/28 04:04:05 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,9 @@ void	eof_control(char *line);
 void	sigint_voider(int signal);
 char	*find_pwd(char **envp);
 char	**ft_split_quotes(char *str);
+void	exec_echo(void);
+void	exec_cd(void);
+int		split_len(char **split);
+void	exec_export(void);
 
 #endif

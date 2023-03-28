@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:29 by melih             #+#    #+#             */
-/*   Updated: 2023/03/26 03:53:17 by uyilmaz          ###   ########.fr       */
+/*   Updated: 2023/03/28 04:07:45 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,14 @@ int	get_first_arg(void)
 		printf("exit\n");
 		exit(0);
 	}
+	else if (!ft_strncmp("echo", g_arg.args[0], 4))
+		exec_echo();
+	else if (!ft_strncmp("cd", g_arg.args[0], 2))
+		exec_cd();
+	else if (!ft_strncmp("export", g_arg.args[0], 6))
+		exec_export();
+	else
+		cmd_process(g_arg.envp);
 	return (0);
 }
 
@@ -41,6 +49,16 @@ void	free_split()
 	while (g_arg.args[++i])
 		free(g_arg.args[i]);
 	free(g_arg.args);
+}
+
+int		split_len(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (g_arg.envp[i])
+		i++;
+	return (i);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -62,7 +80,6 @@ int	main(int argc, char **argv, char **envp)
 			//print_input();
 			g_arg.envp = envp;
 			get_first_arg();
-			cmd_process(envp);
 			g_arg.quit_flag = 0;
 			free_split();
 		}

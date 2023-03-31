@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 02:29:01 by muyumak           #+#    #+#             */
-/*   Updated: 2023/03/28 03:35:42 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/03/31 04:57:45 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	exec_cd(void)
 {
 	static char	*env_pwd;
 	
-	printf("%s\n", env_pwd);
 	if (!env_pwd)
 		env_pwd = getenv("PWD");
 	if (g_arg.args[1] == 0)
@@ -46,10 +45,5 @@ void	exec_cd(void)
 		env_pwd = ft_strjoin(env_pwd, g_arg.args[1]);
 		chdir(env_pwd);
 	}
-	printf("%s\n", env_pwd);
-}
-
-void	exec_pwd(void)
-{
-	
+	system("leaks minishell");
 }

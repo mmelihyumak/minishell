@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:29 by melih             #+#    #+#             */
-/*   Updated: 2023/03/28 04:07:45 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/03/30 08:02:17 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	get_first_arg(void)
 		exec_cd();
 	else if (!ft_strncmp("export", g_arg.args[0], 6))
 		exec_export();
+	else if (!ft_strncmp("env", g_arg.args[0], 3))
+		exec_env();
 	else
 		cmd_process(g_arg.envp);
 	return (0);
@@ -56,7 +58,7 @@ int		split_len(char **split)
 	int	i;
 
 	i = 0;
-	while (g_arg.envp[i])
+	while (split[i])
 		i++;
 	return (i);
 }
@@ -69,6 +71,8 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGQUIT, &sigquit_voider);
 	g_arg.paths = find_path(envp);
 	g_arg.cmd_paths = ft_split(g_arg.paths, ':');
+	set_env(envp);
+	set_export();
 	while (1)
 	{
 		input = readline("minishell$ ");
@@ -78,7 +82,6 @@ int	main(int argc, char **argv, char **envp)
 			add_history(input);
 			g_arg.args = ft_split_quotes(input);
 			//print_input();
-			g_arg.envp = envp;
 			get_first_arg();
 			g_arg.quit_flag = 0;
 			free_split();

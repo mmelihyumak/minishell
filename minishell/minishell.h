@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:46 by melih             #+#    #+#             */
-/*   Updated: 2023/03/28 04:04:05 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/03/30 11:09:02 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ struct s_arg
 	char	**args_temp;
 	char	**args;
 	char	**envp;
+	char	**exports;
 	int		quit_flag;
 }	g_arg;
 
@@ -49,5 +50,13 @@ void	exec_echo(void);
 void	exec_cd(void);
 int		split_len(char **split);
 void	exec_export(void);
+void	set_env(char **envp);
+void	set_export(void);
+void	put_export(char *arg, int i, int flag);
+void	exec_env(void);
+int		check_envp(char *value);
+int		ft_strlen_equal(char *arg);
+void	ft_smart_putstr(char *arg);
+int		equal_control(char *arg);
 
 #endif

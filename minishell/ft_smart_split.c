@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_smart_split.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 01:30:53 by uyilmaz           #+#    #+#             */
-/*   Updated: 2023/03/26 04:25:53 by uyilmaz          ###   ########.fr       */
+/*   Updated: 2023/03/28 05:07:29 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,6 @@ int	quotes_control(char *str)
 			c = str[i];
 		i++;
 	}
-	return (0);
-}
-
-int	check_special_arg()
-{
 	return (0);
 }
 
@@ -116,10 +111,9 @@ char	*stringer(char **ptr, char c)
 			(*ptr)++;
 		}
 		(*ptr)++;
-		while (**ptr && **ptr != ' ')
+		while (**ptr)
 		{
-			if (**ptr != c)
-				ret[i++] = **ptr;
+			ret[i++] = **ptr;
 			(*ptr)++;
 		}
 	}

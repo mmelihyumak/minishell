@@ -1,5 +1,5 @@
-SRCS		=		main.c minishell_exec.c utils_signal.c file_process.c ft_smart_split.c exec_echo.c exec_cd.c exec_export.c \
-					set_env.c exec_unset.c
+SRCS		=		main.c minishell_exec.c utils_signal.c file_process.c utils_list.c list_initializer.c utils_modified.c \
+					spreader.c utils_cmd.c
 
 LIBFT		=		-I./libft
 

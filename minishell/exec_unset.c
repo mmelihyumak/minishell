@@ -1,31 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   exec_unset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/24 22:18:43 by muyumak           #+#    #+#             */
-/*   Updated: 2023/03/30 08:32:33 by melih            ###   ########.fr       */
+/*   Created: 2023/03/30 10:36:13 by melih             #+#    #+#             */
+/*   Updated: 2023/03/30 10:37:27 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-int	ft_strncmp(const char *s1, const char *s2, size_t n)
-{
-	size_t	i;
+#include "minishell.h"
 
-	i = 0;
-	if (!s2)
-		return (1);
-	while (i < n && ((unsigned char)s1[i] || (unsigned char)s2[i]))
-	{
-		if ((unsigned char)s1[i] > (unsigned char)s2[i]
-			|| (unsigned char)s1[i] < (unsigned char)s2[i])
-			{
-				return ((unsigned char)s1[i] - (unsigned char)s2[i]);
-			}
-		i++;
-	}
-	return (0);
+void	exec_unset(void)
+{
+	
 }

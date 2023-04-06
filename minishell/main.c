@@ -6,13 +6,13 @@
 /*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:29 by melih             #+#    #+#             */
-/*   Updated: 2023/03/26 03:53:17 by uyilmaz          ###   ########.fr       */
+/*   Updated: 2023/03/26 04:50:44 by uyilmaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_input()
+void	print_input(void)
 {
 	int	i;
 
@@ -33,7 +33,7 @@ int	get_first_arg(void)
 	return (0);
 }
 
-void	free_split()
+void	free_split(void)
 {
 	int	i;
 
@@ -45,7 +45,7 @@ void	free_split()
 
 int	main(int argc, char **argv, char **envp)
 {
-	char	*input;
+	char *input;
 
 	signal(SIGINT, &sigint_voider);
 	signal(SIGQUIT, &sigquit_voider);
@@ -53,6 +53,7 @@ int	main(int argc, char **argv, char **envp)
 	g_arg.cmd_paths = ft_split(g_arg.paths, ':');
 	while (1)
 	{
+		g_arg.envp = envp;
 		input = readline("minishell$ ");
 		eof_control(input);
 		if (*input != '\n' && *input != '\0')
@@ -60,7 +61,6 @@ int	main(int argc, char **argv, char **envp)
 			add_history(input);
 			g_arg.args = ft_split_quotes(input);
 			//print_input();
-			g_arg.envp = envp;
 			get_first_arg();
 			cmd_process(envp);
 			g_arg.quit_flag = 0;

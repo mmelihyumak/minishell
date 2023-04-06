@@ -6,7 +6,7 @@
 /*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/26 01:30:53 by uyilmaz           #+#    #+#             */
-/*   Updated: 2023/03/26 04:00:30 by uyilmaz          ###   ########.fr       */
+/*   Updated: 2023/03/26 04:25:53 by uyilmaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ int	quotes_control(char *str)
 			c = str[i];
 		i++;
 	}
+	return (0);
+}
+
+int	check_special_arg()
+{
 	return (0);
 }
 

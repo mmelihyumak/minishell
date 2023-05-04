@@ -1,7 +1,7 @@
 SRCS		=		main.c minishell_exec.c utils_signal.c file_process.c utils_list.c \
 					list_initializer.c utils_modified.c utils_format.c spreader_utils.c \
 					pipe_process.c spreader.c set_s_cmd.c fd_settings.c error_check.c \
-					get_env.c exec_echo.c exec_export.c exec_cd.c
+					get_env.c exec_echo.c exec_export.c exec_cd.c ft_strjoin_v2.c
 
 LIBFT		=		-I./libft
 
@@ -21,7 +21,7 @@ $(LIBFT):
 			make bonus -C ./libft
 
 $(NAME):	$(OBJS) $(LIBFT)
-				$(CC) $(CFLAGS) -lreadline $(OBJS) libft/libft.a  -o $(NAME) && ./$(NAME)
+				$(CC) $(CFLAGS) -lreadline $(OBJS) libft/libft.a  -o $(NAME)
 
 clean:
 				$(RM) $(OBJS)

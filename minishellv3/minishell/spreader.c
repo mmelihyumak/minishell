@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:40:29 by melih             #+#    #+#             */
-/*   Updated: 2023/05/03 00:50:10 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/03 17:05:34 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	executor(int i)
 	else if (!ft_strncmp("pwd", g_arg.cmds[i]->cmd_args[0], ft_strlen(g_arg.cmds[i]->cmd_args[0])))
 	{
 		//exec_pwd();
-		printf("--%s--\n", g_arg.pwd);
+		printf("%s\n", g_arg.pwd);
 		return (0);
 	}
 	else if (!ft_strncmp("echo", g_arg.cmds[i]->cmd_args[0], ft_strlen(g_arg.cmds[i]->cmd_args[0])))
@@ -98,7 +98,10 @@ void	spreader(void)
 	j = 0;
 	while (++i < g_arg.pipe_count + 1)
 	{
-		cmd_process(g_arg.env, i, j);
+		if (!ft_strncmp("cd", g_arg.cmds[i]->cmd_args[0], ft_strlen(g_arg.cmds[i]->cmd_args[0])))
+			exec_cd(i);
+		else
+			cmd_process(g_arg.env, i, j);
 		if (i % 2 == 0 && i != 0)
 			j++;
 	}

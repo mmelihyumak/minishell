@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:46 by melih             #+#    #+#             */
-/*   Updated: 2023/05/03 01:31:33 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/03 17:36:53 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,6 +125,7 @@ void		exec_cd(int query);
 void		go_back(char *env_pwd);
 int			here_doc_process(t_cmd *command);
 void		t_here_doc_settings(t_cmd *command);
+char		*ft_strjoin_v2(char *str, char *buff);
 
 
 void	print_input(char **strings);

@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 02:25:38 by melih             #+#    #+#             */
-/*   Updated: 2023/05/03 01:45:37 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/03 16:59:22 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	here_doc_process(t_cmd *command)
 			temp = ft_strjoin(g_arg.here_doc_input, "\n");
 			write(command->here_doc.tubes[1], temp, ft_strlen(temp));
 			free(temp);
+			free(g_arg.here_doc_input);
 		}
 		exit(0);
 	}

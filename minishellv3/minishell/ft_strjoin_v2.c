@@ -1,39 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin_v2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/17 18:10:51 by muyumak           #+#    #+#             */
-/*   Updated: 2023/05/03 17:23:28 by melih            ###   ########.fr       */
+/*   Created: 2023/05/03 17:35:44 by melih             #+#    #+#             */
+/*   Updated: 2023/05/03 17:36:35 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin_v2(char *str, char *buff)
 {
 	char	*strlink;
-	size_t	i;
-	size_t	j;
+	int		i;
+	int		j;
 
-	i = 0;
-	j = 0;
-	strlink = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (!str)
+	{
+		str = malloc(1);
+		str[0] = 0;
+	}
+	if (!str || !buff)
+		return (0);
+	strlink = malloc(sizeof(char) * (ft_strlen(str) + ft_strlen(buff) + 1));
 	if (!strlink)
-		return (NULL);
-	while (s1[i])
-	{
-		strlink[i] = s1[i];
-		i++;
-	}
-	while (s2[j])
-	{
-		strlink[i] = s2[j];
-		i++;
-		j++;
-	}
-	strlink[i] = 0;
+		return (0);
+	i = -1;
+	if (str)
+		while (str[++i])
+			strlink[i] = str[i];
+	j = 0;
+	while (buff[j])
+		strlink[i++] = buff[j++];
+	strlink[ft_strlen(str) + ft_strlen(buff)] = 0;
+	free(str);
 	return (strlink);
 }

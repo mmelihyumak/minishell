@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 02:25:38 by melih             #+#    #+#             */
-/*   Updated: 2023/05/03 16:59:22 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/06 17:17:51 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,15 @@ char	*find_pwd(char **envp)
 int	here_doc_process(t_cmd *command)
 {
 	char	*temp;
-	g_arg.heredoc_pid = fork();
-	if (g_arg.heredoc_pid == 0)
+	command->here_doc.pid = fork();
+	if (command->here_doc.pid  == 0)
 	{
 		close(command->here_doc.tubes[0]);
 		while (1)
 		{
 			g_arg.here_doc_input = readline("> ");
+			if (!*g_arg.here_doc_input)
+				continue ;
 			if (!ft_strncmp(command->here_doc_name, g_arg.here_doc_input, ft_strlen(g_arg.here_doc_input)))
 				exit(0);
 			temp = ft_strjoin(g_arg.here_doc_input, "\n");
@@ -66,15 +68,10 @@ int	cmd_process(char **envp, int i, int j)
 	if (g_arg.pid[i] == 0)
 	{
 		if (g_arg.cmds[i]->here_doc.here_doc_name)
-		{
 			here_doc_process(g_arg.cmds[i]);
-			waitpid(g_arg.heredoc_pid, NULL, 0);
-		}
 		else
-		{
-			close(g_arg.cmds[0]->here_doc.tubes[0]);
-			close(g_arg.cmds[0]->here_doc.tubes[1]);
-		}
+			close_heredoc_tubes();
+		wait_heredoc_process();
 		close_fd(g_arg.cmds[i]);
 		dup2(g_arg.cmds[i]->fd_in, STDIN_FILENO);
 		dup2(g_arg.cmds[i]->fd_out, STDOUT_FILENO);

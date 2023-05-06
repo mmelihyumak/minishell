@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:29 by melih             #+#    #+#             */
-/*   Updated: 2023/05/04 17:08:14 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/05 11:35:49 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ int	main(int argc, char **argv, char **envp)
 	signal(SIGINT, &sigint_voider);
 	signal(SIGQUIT, &sigquit_voider);
 	get_env(envp);
-	set_export();
 	g_arg.list = NULL;
 	g_arg.paths = find_path(g_arg.env);
 	g_arg.cmd_paths = ft_split(g_arg.paths, ':');
 	g_arg.pwd = find_pwd(g_arg.env);
+	set_export();
 	while (1)
 	{
 		g_arg.input = readline("minishell$ ");
@@ -73,6 +73,8 @@ int	main(int argc, char **argv, char **envp)
 			{
 				spreader();
 			}
+			else
+				continue ;
 			//print_input();
 			//get_first_arg();
 			//cmd_process(envp);

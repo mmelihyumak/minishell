@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:25:52 by melih             #+#    #+#             */
-/*   Updated: 2023/05/02 23:02:33 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/04 22:11:09 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	count_arg(void)
 	{
 		if (temp->flag == '|')
 			g_arg.pipe_count++;
+		if (temp->flag == 'h')
+			g_arg.heredoc_count++;
 		g_arg.arg_count++;
 		temp = temp->next;
 	}

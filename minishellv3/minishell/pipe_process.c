@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:39:47 by melih             #+#    #+#             */
-/*   Updated: 2023/05/03 01:35:07 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/05 05:37:47 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	open_pipes(void)
 void	set_tubes(void)
 {
 	int	i;
-
 
 	i = 0;
 	while (i < g_arg.pipe_count)
@@ -108,7 +107,7 @@ void	close_fd(t_cmd *command)
 		i++;
 	}
 	printf("last: ");
-	print_closing_fd(g_arg.cmds[i]->here_doc.tubes[1]);
+	print_closing_fd(command->here_doc.tubes[1]);
 	close(command->here_doc.tubes[1]);
 }
 

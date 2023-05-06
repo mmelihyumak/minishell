@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:46 by melih             #+#    #+#             */
-/*   Updated: 2023/05/03 17:36:53 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/05 05:32:20 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ typedef struct s_cmd
 struct s_arg
 {
 	pid_t		*pid;
-	pid_t		heredoc_pid;
 	char		quote_flag;
 	char		*input;
 	char		*here_doc_input;
@@ -69,9 +68,11 @@ struct s_arg
 	int			quit_flag;
 	int			arg_count;
 	int			pipe_count;
+	int			heredoc_count;
 	int			cmd_index;
 	int			exit_status;
 	int			**tubes;
+	int			**heredoc_tubes;
 	t_cmd		**cmds;
 	t_arg_list	*list;
 }	g_arg;
@@ -126,6 +127,9 @@ void		go_back(char *env_pwd);
 int			here_doc_process(t_cmd *command);
 void		t_here_doc_settings(t_cmd *command);
 char		*ft_strjoin_v2(char *str, char *buff);
+void		close_heredoc_tubes(void);
+void		wait_heredoc_process(void);
+void		call_heredoc_settings(void);
 
 
 void	print_input(char **strings);

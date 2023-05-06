@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:40:29 by melih             #+#    #+#             */
-/*   Updated: 2023/05/03 17:05:34 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/06 17:56:49 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	spreader(void)
 	t_cmd_settings();
 	set_tubes();
 	set_fds();
+	call_heredoc_settings();
 	print_t_cmd();
 	//printf("fd_in: %d\n", g_arg.cmds[1]->fd_in);
 	//printf("fd_out: %d\n", g_arg.cmds[1]->fd_out);
@@ -98,10 +99,10 @@ void	spreader(void)
 	j = 0;
 	while (++i < g_arg.pipe_count + 1)
 	{
-		if (!ft_strncmp("cd", g_arg.cmds[i]->cmd_args[0], ft_strlen(g_arg.cmds[i]->cmd_args[0])))
-			exec_cd(i);
-		else
-			cmd_process(g_arg.env, i, j);
+		//if (!ft_strncmp("cd", g_arg.cmds[i]->cmd_args[0], ft_strlen(g_arg.cmds[i]->cmd_args[0])))
+		//	exec_cd(i);
+		//else
+		cmd_process(g_arg.env, i, j);
 		if (i % 2 == 0 && i != 0)
 			j++;
 	}
@@ -120,6 +121,7 @@ void	print_t_cmd(void)
 		printf("\n");
 		printf("cmds[%d] infile: %s fd: %d\n", i, g_arg.cmds[i]->infile_name, g_arg.cmds[i]->fd_in);
 		printf("cmds[%d] outfile: %s fd: %d\n", i, g_arg.cmds[i]->outfile_name, g_arg.cmds[i]->fd_out);
+		printf("cmds[%d] heredoc_file: %s\n", i, g_arg.cmds[i]->here_doc_name);
 		if (g_arg.cmds[i]->here_doc_name)
 			printf("here_doc: %s\n", g_arg.cmds[i]->here_doc_name);
 		j = 0;

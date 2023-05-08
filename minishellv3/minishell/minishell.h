@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:46 by melih             #+#    #+#             */
-/*   Updated: 2023/05/05 05:32:20 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/08 03:28:13 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@
 # include <dirent.h>
 # include "./libft/libft.h"
 
-typedef struct s_here_doc
+typedef struct s_heredoc
 {
 	pid_t	pid;
-	int		tubes[2];	
+	int		tubes[2];
 	char	*here_doc_name;
-}	t_here_doc;
+	char	*input;
+}	t_heredoc;
 
 typedef struct s_arg_list
 {
@@ -44,9 +45,10 @@ typedef struct s_cmd
 	char			*outfile_name;
 	int				fd_in;
 	int				fd_out;
-	char			*here_doc_name;
 	int				query;
-	t_here_doc		here_doc;
+	int				heredoc_count;
+	int				tmp_hdcount;
+	t_heredoc		*heredoc;
 }	t_cmd;
 
 struct s_arg
@@ -54,7 +56,6 @@ struct s_arg
 	pid_t		*pid;
 	char		quote_flag;
 	char		*input;
-	char		*here_doc_input;
 	char		*cmd;
 	char		*pwd;
 	char		*paths;
@@ -68,11 +69,9 @@ struct s_arg
 	int			quit_flag;
 	int			arg_count;
 	int			pipe_count;
-	int			heredoc_count;
 	int			cmd_index;
 	int			exit_status;
 	int			**tubes;
-	int			**heredoc_tubes;
 	t_cmd		**cmds;
 	t_arg_list	*list;
 }	g_arg;
@@ -124,12 +123,12 @@ void		ft_smart_putstr(char *arg);
 void		set_export(void);
 void		exec_cd(int query);
 void		go_back(char *env_pwd);
-int			here_doc_process(t_cmd *command);
-void		t_here_doc_settings(t_cmd *command);
+void		here_doc_process(t_cmd *command, int hd_id);
 char		*ft_strjoin_v2(char *str, char *buff);
-void		close_heredoc_tubes(void);
-void		wait_heredoc_process(void);
-void		call_heredoc_settings(void);
+int			ft_strcmp(char *s1, char *s2);
+void		count_heredoc(t_cmd *command);
+void		set_heredocs(void);
+void		open_heredoc(t_cmd *command);
 
 
 void	print_input(char **strings);

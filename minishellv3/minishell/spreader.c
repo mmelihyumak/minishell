@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:40:29 by melih             #+#    #+#             */
-/*   Updated: 2023/05/06 17:56:49 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/08 03:45:03 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	spreader(void)
 	t_cmd_settings();
 	set_tubes();
 	set_fds();
-	call_heredoc_settings();
+	set_heredocs();
 	print_t_cmd();
 	//printf("fd_in: %d\n", g_arg.cmds[1]->fd_in);
 	//printf("fd_out: %d\n", g_arg.cmds[1]->fd_out);
@@ -121,9 +121,11 @@ void	print_t_cmd(void)
 		printf("\n");
 		printf("cmds[%d] infile: %s fd: %d\n", i, g_arg.cmds[i]->infile_name, g_arg.cmds[i]->fd_in);
 		printf("cmds[%d] outfile: %s fd: %d\n", i, g_arg.cmds[i]->outfile_name, g_arg.cmds[i]->fd_out);
-		printf("cmds[%d] heredoc_file: %s\n", i, g_arg.cmds[i]->here_doc_name);
-		if (g_arg.cmds[i]->here_doc_name)
-			printf("here_doc: %s\n", g_arg.cmds[i]->here_doc_name);
+		printf("cmds[%d] heredoc_count: %d\n", i, g_arg.cmds[i]->heredoc_count);
+		printf("cmds[%d] temp_heredoc_count: %d\n", i, g_arg.cmds[i]->tmp_hdcount);
+		j = -1;
+		while (++j < g_arg.cmds[i]->heredoc_count)
+			printf("cmds[%d].heredoc[%d].heredoc_name = %s\n", i, j, g_arg.cmds[i]->heredoc[j].here_doc_name);
 		j = 0;
 		while (g_arg.cmds[i]->cmd_args[j])
 		{

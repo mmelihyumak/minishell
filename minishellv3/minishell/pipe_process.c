@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:39:47 by melih             #+#    #+#             */
-/*   Updated: 2023/05/05 05:37:47 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/08 01:59:33 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,6 @@ void	close_tubes(void)
 			print_closing_fd(g_arg.cmds[i]->fd_out);
 			close(g_arg.cmds[i]->fd_out);
 		}
-		if (g_arg.cmds[i]->here_doc.here_doc_name)
-		{
-			printf("here_doc.tubes[1]: %d\n", g_arg.cmds[i]->here_doc.tubes[1]);
-			print_closing_fd(g_arg.cmds[i]->here_doc.tubes[0]);
-			print_closing_fd(g_arg.cmds[i]->here_doc.tubes[1]);
-			close(g_arg.cmds[i]->here_doc.tubes[0]);
-			close(g_arg.cmds[i]->here_doc.tubes[1]);
-		}
 	}
 }
 
@@ -90,7 +82,7 @@ void	close_fd(t_cmd *command)
 	i = 0;
 	while (i < g_arg.pipe_count)
 	{
-		if (command->fd_in != g_arg.tubes[i][0] && !command->here_doc.here_doc_name)
+		if (command->fd_in != g_arg.tubes[i][0])
 		{
 			printf("content: %s\n", command->cmd_args[0]);
 			printf("fd_in: %d\n", g_arg.tubes[i][0]);
@@ -106,9 +98,6 @@ void	close_fd(t_cmd *command)
 		}
 		i++;
 	}
-	printf("last: ");
-	print_closing_fd(command->here_doc.tubes[1]);
-	close(command->here_doc.tubes[1]);
 }
 
 void	wait_process(void)

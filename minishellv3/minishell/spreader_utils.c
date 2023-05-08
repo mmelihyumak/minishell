@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:25:52 by melih             #+#    #+#             */
-/*   Updated: 2023/05/04 22:11:09 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/08 02:12:34 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void	count_arg(void)
 	{
 		if (temp->flag == '|')
 			g_arg.pipe_count++;
-		if (temp->flag == 'h')
-			g_arg.heredoc_count++;
 		g_arg.arg_count++;
 		temp = temp->next;
 	}
@@ -43,7 +41,7 @@ int	flag_setter(void)
 		if (temp->flag == '<')
 			if (temp->next)
 				temp->next->flag = 'i';
-		if (!ft_strncmp("<<", temp->content, 2))
+		if (ft_strcmp(temp->content, "<<") == 0)
 		{
 			temp->flag = 'h';
 			if (temp->next)

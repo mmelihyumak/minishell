@@ -6,7 +6,7 @@
 /*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 02:16:30 by uyilmaz           #+#    #+#             */
-/*   Updated: 2023/03/28 02:38:36 by uyilmaz          ###   ########.fr       */
+/*   Updated: 2023/05/10 21:09:37 by uyilmaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	ft_lstadd_back_v2(t_arg_list **lst, t_arg_list *new)
 {
 	t_arg_list	*last;
 
+	if (!new)
+		return ;
 	if (*lst == NULL)
 	{
 		*lst = new;

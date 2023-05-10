@@ -24,7 +24,7 @@ char	*ft_strjoin_v3(char *s1, char *s2)
 		s1[0] = '\0';
 	}
 	if (!s2)
-		return (0);
+		return (s1);
 	result = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!result)
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 20:58:23 by uyilmaz           #+#    #+#             */
-/*   Updated: 2023/04/07 02:09:35 by uyilmaz          ###   ########.fr       */
+/*   Updated: 2023/05/10 19:51:28 by uyilmaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ char	*get_env_var(char *str, char **env, int *i, int *j)
 	int	len;
 
 	index = 0;
+	if (str[index] == '?')
+	{
+		*i += 1;
+		return (ft_itoa(g_arg.exit_status));
+	}
 	while (ft_isalnum(str[index]))
 			index++;
 	*j = *i;

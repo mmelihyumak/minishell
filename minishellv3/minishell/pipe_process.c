@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:39:47 by melih             #+#    #+#             */
-/*   Updated: 2023/05/08 01:59:33 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/08 23:06:42 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,12 @@ void	set_tubes(void)
 {
 	int	i;
 
-	i = 0;
-	while (i < g_arg.pipe_count)
-	{
+	i = -1;
+	while (++i < g_arg.pipe_count)
 		g_arg.cmds[i]->fd_out = g_arg.tubes[i][1];
-		i++;
-	}
-	i = 1;
-	while (i < g_arg.pipe_count + 1)
-	{
+	i = 0;
+	while (++i < g_arg.pipe_count + 1)
 		g_arg.cmds[i]->fd_in = g_arg.tubes[i - 1][0];
-		i++;
-	}
 }
 
 void	close_tubes(void)

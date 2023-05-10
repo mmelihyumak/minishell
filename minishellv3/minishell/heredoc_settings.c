@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 02:04:40 by melih             #+#    #+#             */
-/*   Updated: 2023/05/08 03:28:45 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/10 03:05:30 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	set_heredoc_name(t_cmd *command)
 	i = 0;
 	if (temp == NULL)
 		temp = g_arg.list;
-	while (temp && temp->flag != '|')
+	while (temp&& temp->flag != '|')
 	{
 		if (temp->flag == 'e')
 		{
@@ -69,9 +69,40 @@ void	set_heredoc_name(t_cmd *command)
 		temp = temp->next;
 }
 
-int	check_active_heredoc(void)
+void	set_heredoc_tubes(t_cmd *command)
 {
-	return (0);
+	pipe(command->heredoc[command->heredoc_count - 1].tubes);
+	command->fd_in = command->heredoc[command->heredoc_count - 1].tubes[0];
+}
+
+void	close_heredoc_tubes(void)
+{
+	int	i;
+
+	i = -1;
+	while (++i < g_arg.pipe_count + 1)
+	{
+		if (g_arg.cmds[i]->heredoc_count > 0)
+		{
+			close(g_arg.cmds[i]->heredoc[g_arg.cmds[i]->heredoc_count - 1].tubes[0]);
+			close(g_arg.cmds[i]->heredoc[g_arg.cmds[i]->heredoc_count - 1].tubes[1]);
+		}
+	}
+}
+
+void	close_other_heredocs(t_cmd *command)
+{
+	int	i;
+
+	i = -1;
+	while (++i < g_arg.pipe_count + 1)
+	{
+		if (g_arg.cmds[i]->heredoc != command->heredoc)
+		{
+			close(g_arg.cmds[i]->heredoc[g_arg.cmds[i]->heredoc_count - 1].tubes[1]);
+			close(g_arg.cmds[i]->heredoc[g_arg.cmds[i]->heredoc_count - 1].tubes[0]);
+		}
+	}
 }
 
 void	set_heredocs(void)
@@ -82,7 +113,11 @@ void	set_heredocs(void)
 	while (++i < g_arg.pipe_count + 1)
 	{
 		count_heredoc(g_arg.cmds[i]);
-		g_arg.cmds[i]->heredoc = malloc(sizeof(t_heredoc) * g_arg.cmds[i]->heredoc_count);
-		set_heredoc_name(g_arg.cmds[i]);	
+		if (g_arg.cmds[i]->heredoc_count > 0)
+		{
+			g_arg.cmds[i]->heredoc = malloc(sizeof(t_heredoc) * g_arg.cmds[i]->heredoc_count);
+			set_heredoc_name(g_arg.cmds[i]);
+			set_heredoc_tubes(g_arg.cmds[i]);
+		}
 	}
 }

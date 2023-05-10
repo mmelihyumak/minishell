@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 21:20:33 by melih             #+#    #+#             */
-/*   Updated: 2023/05/08 02:31:41 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/09 02:45:15 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	t_cmd_settings(void)
 	t_arg_list	*temp;
 	
 	temp = g_arg.list;
-	g_arg.cmds = malloc(sizeof(t_cmd *) * (g_arg.pipe_count + 1));
+	g_arg.cmds = malloc(sizeof(t_cmd *) * (g_arg.pipe_count + 2));
 	i = 0;
 	while (i < g_arg.pipe_count + 1)
 	{

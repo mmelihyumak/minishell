@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:29 by melih             #+#    #+#             */
-/*   Updated: 2023/05/05 11:35:49 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/10 02:56:07 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,24 @@ void	free_split(char **strings)
 	free(strings);
 }
 
+void	last_of_list(void)
+{
+	t_arg_list	*temp;
+
+	temp = g_arg.list;
+	while (temp->next)
+	{
+		printf("LLL\n");
+		temp = temp->next;
+	}
+	temp->next = NULL;
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	signal(SIGINT, &sigint_voider);
 	signal(SIGQUIT, &sigquit_voider);
+	signal(SIGUSR1, &signal_handler);
 	get_env(envp);
 	g_arg.list = NULL;
 	g_arg.paths = find_path(g_arg.env);
@@ -58,6 +72,7 @@ int	main(int argc, char **argv, char **envp)
 			add_history(g_arg.input);
 			//g_arg.args = ft_split_quotes(input);
 			list_init(g_arg.input);
+			last_of_list();
 			count_arg();
 			flag_setter();
 			t_arg_list	*temp;

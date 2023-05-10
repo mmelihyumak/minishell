@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:25:52 by melih             #+#    #+#             */
-/*   Updated: 2023/05/08 02:12:34 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/09 02:53:43 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,16 @@ void	refresh_counts(void)
 void	free_commands(void)
 {
 	int	i;
+	int	j;
 
 	i = -1;
 	while (++i < g_arg.pipe_count + 1)
 	{
+		j = -1;
 		free_split(g_arg.commands[i]);
+		while (++j < g_arg.cmds[i]->heredoc_count)
+			free(g_arg.cmds[i]->heredoc[j].here_doc_name);
+		free(g_arg.cmds[i]->heredoc);
 		free(g_arg.cmds[i]);
 	}
 	free(g_arg.cmds);

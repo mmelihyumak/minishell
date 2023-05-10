@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:40:29 by melih             #+#    #+#             */
-/*   Updated: 2023/05/08 03:45:03 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/09 06:33:02 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	spreader(void)
 		if (i % 2 == 0 && i != 0)
 			j++;
 	}
+	close_heredoc_tubes();
 	close_tubes();
 	wait_process();
 }

@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:39:47 by melih             #+#    #+#             */
-/*   Updated: 2023/05/08 23:06:42 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/10 21:47:26 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	close_tubes(void)
 	i = 0;
 	while (i < g_arg.pipe_count)
 	{
-		printf("closing in: %d\n", g_arg.tubes[i][0]);
-		printf("closing out: %d\n", g_arg.tubes[i][1]);
+		//printf("closing in: %d\n", g_arg.tubes[i][0]);
+		//printf("closing out: %d\n", g_arg.tubes[i][1]);
 		close(g_arg.tubes[i][1]);
 		close(g_arg.tubes[i][0]);
 		i++;
@@ -78,15 +78,15 @@ void	close_fd(t_cmd *command)
 	{
 		if (command->fd_in != g_arg.tubes[i][0])
 		{
-			printf("content: %s\n", command->cmd_args[0]);
-			printf("fd_in: %d\n", g_arg.tubes[i][0]);
+			//printf("content: %s\n", command->cmd_args[0]);
+			//printf("fd_in: %d\n", g_arg.tubes[i][0]);
 			close(g_arg.tubes[i][0]);
 			print_closing_fd(g_arg.tubes[i][0]);
 		}
 		if (command->fd_out != g_arg.tubes[i][1])
 		{
-			printf("content: %s\n", command->cmd_args[0]);
-			printf("fd_out: %d\n", g_arg.tubes[i][1]);
+			//printf("content: %s\n", command->cmd_args[0]);
+			//printf("fd_out: %d\n", g_arg.tubes[i][1]);
 			close(g_arg.tubes[i][1]);
 			print_closing_fd(g_arg.tubes[i][1]);
 		}

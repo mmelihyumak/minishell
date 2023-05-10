@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 02:04:40 by melih             #+#    #+#             */
-/*   Updated: 2023/05/10 03:05:30 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/10 20:23:33 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,27 @@ void	count_heredoc(t_cmd *command)
 
 void	set_heredoc_name(t_cmd *command)
 {
-	static t_arg_list	*temp;
-	int	i;
+	t_arg_list	*temp;
+	int			i;
+	int			j;
 
 	i = 0;
-	if (temp == NULL)
-		temp = g_arg.list;
-	while (temp&& temp->flag != '|')
+	j = 0;
+	temp = g_arg.list;
+	while (temp)
 	{
 		if (temp->flag == 'e')
 		{
-			command->heredoc[i].here_doc_name = ft_strdup(temp->content);
+			g_arg.cmds[i]->heredoc[j].here_doc_name = ft_strdup(temp->content);
+			j++;
+		}
+		if (temp->flag == '|')
+		{
 			i++;
+			j = 0;
 		}
 		temp = temp->next;
 	}
-	if (temp && temp->flag == '|' && temp->next != NULL)
-		temp = temp->next;
 }
 
 void	set_heredoc_tubes(t_cmd *command)
@@ -116,8 +120,8 @@ void	set_heredocs(void)
 		if (g_arg.cmds[i]->heredoc_count > 0)
 		{
 			g_arg.cmds[i]->heredoc = malloc(sizeof(t_heredoc) * g_arg.cmds[i]->heredoc_count);
-			set_heredoc_name(g_arg.cmds[i]);
 			set_heredoc_tubes(g_arg.cmds[i]);
 		}
 	}
+	set_heredoc_name(g_arg.cmds[i]);
 }

@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:46 by melih             #+#    #+#             */
-/*   Updated: 2023/05/10 02:56:21 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/10 20:35:51 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ struct s_arg
 	int			pipe_count;
 	int			cmd_index;
 	int			exit_status;
+	int			sigusr_i;
 	int			**tubes;
 	t_cmd		**cmds;
 	t_arg_list	*list;
@@ -128,7 +129,7 @@ char		*ft_strjoin_v2(char *str, char *buff);
 int			ft_strcmp(char *s1, char *s2);
 void		count_heredoc(t_cmd *command);
 void		set_heredocs(void);
-void		open_heredoc(t_cmd *command);
+void		open_heredoc(t_cmd *command, int x);
 void		set_heredoc_tubes(t_cmd *command);
 void		close_heredoc_tubes(void);
 void		close_other_heredocs(t_cmd *command);

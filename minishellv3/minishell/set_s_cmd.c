@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 21:20:33 by melih             #+#    #+#             */
-/*   Updated: 2023/05/09 02:45:15 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/10 19:44:47 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	t_cmd_settings(void)
 		g_arg.cmds[i]->infile_name = NULL;
 		g_arg.cmds[i]->outfile_name = NULL;
 		g_arg.cmds[i]->heredoc = NULL;
+		g_arg.cmds[i]->heredoc_count = 0;
+		g_arg.cmds[i]->tmp_hdcount = 0;
 		g_arg.cmds[i]->cmd_args = g_arg.commands[i];
 		g_arg.cmds[i]->fd_in = 0;
 		g_arg.cmds[i]->fd_out = 1;

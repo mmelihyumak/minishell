@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 02:25:38 by melih             #+#    #+#             */
-/*   Updated: 2023/05/10 03:13:46 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/10 03:50:01 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,11 @@ void	open_heredoc(t_cmd *command)
 
 void	signal_handler(int signal)
 {
+	static int	i;
+	
+	i++;
 	if (signal == SIGUSR1)
-		g_arg.cmds[0]->tmp_hdcount = 0;
+		g_arg.cmds[i - 1]->tmp_hdcount = 0;
 }
 
 int	cmd_process(char **envp, int i, int j)
@@ -89,7 +92,7 @@ int	cmd_process(char **envp, int i, int j)
 	g_arg.pid[i] = fork();
 	if (g_arg.pid[i] == 0)
 	{
-		if (i > 0 && g_arg.cmds[0]->tmp_hdcount != 0)
+		if (i > 0 && g_arg.cmds[i - 1]->tmp_hdcount != 0)
 		{
 			while (1)
 			{

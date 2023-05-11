@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spreader.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:40:29 by melih             #+#    #+#             */
-/*   Updated: 2023/05/11 05:40:46 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/05/11 19:32:34 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,12 @@ void	spreader(void)
 	g_arg.pid = malloc(sizeof(pid_t) * (g_arg.pipe_count + 1));
 	if (g_arg.pipe_count > 0)
 		open_pipes();
-	g_arg.commands = malloc(sizeof(char **) * (g_arg.pipe_count + 1));
-	j = 0;
-	i = 0;
+	g_arg.commands = malloc(sizeof(char **) * (g_arg.pipe_count + 2));
+	j = -1;
 	while (temp)
 	{
 		i = 0;
-		g_arg.commands[j] = malloc(sizeof(char *) * (count_cmd_arg(temp) + 1));
+		g_arg.commands[++j] = malloc(sizeof(char *) * (count_cmd_arg(temp) + 1));
 		while (temp)
 		{
 			if (temp->flag == 'o')
@@ -104,8 +103,8 @@ void	spreader(void)
 		}
 		else
 			break ;
-		j++;
 	}
+	g_arg.commands[j + 1] = NULL;
 	spreader_v3();
 }
 

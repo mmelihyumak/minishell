@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 02:25:38 by melih             #+#    #+#             */
-/*   Updated: 2023/05/11 05:39:49 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/05/11 20:06:08 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,10 @@ int	cmd_process(char **envp, int i)
 		dup2(g_arg.cmds[i]->fd_out, STDOUT_FILENO);
 		if (!executor(i))
 			exit(0);
-		g_arg.cmd = get_cmd(g_arg.cmd_paths, g_arg.cmds[i]->cmd_args[0]);
+		if (access(g_arg.cmds[i]->cmd_args[0], 0) != 0)
+			g_arg.cmd = get_cmd(g_arg.cmd_paths, g_arg.cmds[i]->cmd_args[0]);
+		else
+			g_arg.cmd = g_arg.cmds[i]->cmd_args[0];
 		if (!g_arg.cmd)
 		{
 			printf("minishell: %s: command not found\n", g_arg.cmds[i]->cmd_args[0]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_initializer.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 20:58:05 by uyilmaz           #+#    #+#             */
-/*   Updated: 2023/04/27 15:48:53 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/11 05:16:13 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,12 +110,5 @@ int	list_init(char *str)
 		else if (str[i] && str[i] != ' ')
 			handle_others(str, &i, 'o');
 	}
-	t_arg_list *ptr = g_arg.list;
-	while (ptr)
-	{
-		printf("command: #%s#\nflag: %c\n\n", ptr->content, ptr->flag);
-		ptr = ptr->next;
-	}
-	//system("leaks minishell");
 	return (0);
 }

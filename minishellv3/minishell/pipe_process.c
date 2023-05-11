@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:39:47 by melih             #+#    #+#             */
-/*   Updated: 2023/05/10 21:47:26 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/11 05:38:07 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,55 +42,33 @@ void	close_tubes(void)
 {
 	int	i;
 
-	i = 0;
-	while (i < g_arg.pipe_count)
+	i = -1;
+	while (++i < g_arg.pipe_count)
 	{
-		//printf("closing in: %d\n", g_arg.tubes[i][0]);
-		//printf("closing out: %d\n", g_arg.tubes[i][1]);
 		close(g_arg.tubes[i][1]);
 		close(g_arg.tubes[i][0]);
-		i++;
 	}
 	i = -1;
 	while (++i < g_arg.pipe_count + 1)
 	{
 		if (g_arg.cmds[i]->infile_name != 0)
-		{
-			printf("infile_name: %s\n", g_arg.cmds[i]->infile_name);
-			print_closing_fd(g_arg.cmds[i]->fd_in);
 			close(g_arg.cmds[i]->fd_in);
-		}
 		if (g_arg.cmds[i]->outfile_name != 0)
-		{
-			printf("outfile_name: %s\n", g_arg.cmds[i]->outfile_name);
-			print_closing_fd(g_arg.cmds[i]->fd_out);
 			close(g_arg.cmds[i]->fd_out);
-		}
 	}
 }
 
 void	close_fd(t_cmd *command)
 {
 	int	i;
-	
-	i = 0;
-	while (i < g_arg.pipe_count)
+
+	i = -1;
+	while (++i < g_arg.pipe_count)
 	{
 		if (command->fd_in != g_arg.tubes[i][0])
-		{
-			//printf("content: %s\n", command->cmd_args[0]);
-			//printf("fd_in: %d\n", g_arg.tubes[i][0]);
 			close(g_arg.tubes[i][0]);
-			print_closing_fd(g_arg.tubes[i][0]);
-		}
 		if (command->fd_out != g_arg.tubes[i][1])
-		{
-			//printf("content: %s\n", command->cmd_args[0]);
-			//printf("fd_out: %d\n", g_arg.tubes[i][1]);
 			close(g_arg.tubes[i][1]);
-			print_closing_fd(g_arg.tubes[i][1]);
-		}
-		i++;
 	}
 }
 
@@ -105,9 +83,6 @@ void	wait_process(void)
 	{
 		waitpid(g_arg.pid[i], &g_arg.exit_status, 0);
 		if (WIFEXITED(g_arg.exit_status))
-		{
 			g_arg.exit_status = WEXITSTATUS(g_arg.exit_status);
-			printf("status: %d\n", g_arg.exit_status);
-		}
 	}
 }

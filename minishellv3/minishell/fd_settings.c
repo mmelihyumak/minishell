@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fd_settings.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/12 02:23:13 by melih             #+#    #+#             */
-/*   Updated: 2023/05/05 05:13:22 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/11 05:36:50 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@ void	set_fds(void)
 {
 	t_arg_list	*temp;
 	int	i;
-	int	j;
 
-	i = 0;
+	i = -1;
 	temp = g_arg.list;
-	while (g_arg.cmds[i])
+	while (g_arg.cmds[++i])
 	{
-		j = 0;
 		if (temp->flag == '|' && temp->next != NULL)
 			temp = temp->next;
 		while (temp)
@@ -41,6 +39,5 @@ void	set_fds(void)
 				break ;
 			temp = temp->next;
 		}
-		i++;
 	}
 }

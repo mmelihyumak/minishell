@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_s_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 21:20:33 by melih             #+#    #+#             */
-/*   Updated: 2023/05/10 19:44:47 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/11 05:17:10 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	t_cmd_settings(void)
 {
-	int	i;
+	int			i;
 	t_arg_list	*temp;
-	
+
 	temp = g_arg.list;
 	g_arg.cmds = malloc(sizeof(t_cmd *) * (g_arg.pipe_count + 2));
 	i = 0;
@@ -34,4 +34,50 @@ void	t_cmd_settings(void)
 		i++;
 	}
 	g_arg.cmds[i] = NULL;
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int	i;
+
+	if (!s1 || !s2)
+		return (-1);
+	if (ft_strlen(s1) != ft_strlen(s2))
+		return (-1);
+	i = -1;
+	while (s1[++i])
+	{
+		if (s1[i] != s2[i])
+			return (-1);
+	}	
+	return (0);
+}
+
+void	print_input(char **strings)
+{
+	int	i;
+
+	i = -1;
+	while (strings[++i])
+		printf("string[%d]: %s\n", i, strings[i]);
+}
+
+void	free_split(char **strings)
+{
+	int	i;
+
+	i = -1;
+	while (strings[++i])
+		free(strings[i]);
+	free(strings);
+}
+
+void	last_of_list(void)
+{
+	t_arg_list	*temp;
+
+	temp = g_arg.list;
+	while (temp->next)
+		temp = temp->next;
+	temp->next = NULL;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 02:25:38 by melih             #+#    #+#             */
-/*   Updated: 2023/05/10 21:38:01 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/11 05:39:49 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	here_doc_process(t_cmd *command, int hd_id)
 {
 	char	*temp;
 	
-	printf("\nhd_id: %d\n\n", hd_id);
 	command->heredoc[hd_id].pid = fork();
 	if (command->heredoc[hd_id].pid == 0)
 	{
@@ -52,9 +51,7 @@ void	here_doc_process(t_cmd *command, int hd_id)
 				close(command->heredoc[hd_id].tubes[0]);
 			command->heredoc[hd_id].input = readline("> ");
 			if (ft_strcmp(command->heredoc[hd_id].input, command->heredoc[hd_id].here_doc_name) == 0)
-			{
 				exit(0);				
-			}
 			temp = ft_strjoin(command->heredoc[hd_id].input, "\n");
 			if (hd_id == command->heredoc_count - 1)
 				write(command->heredoc[hd_id].tubes[1], temp, ft_strlen(temp));
@@ -82,14 +79,26 @@ void	open_heredoc(t_cmd *command, int x)
 	i++;
 }
 
-void	signal_handler(int signal)
+void	waited_heredoc(int i)
 {
-	g_arg.sigusr_i++;
-	if (signal == SIGUSR1)
-		g_arg.cmds[g_arg.sigusr_i - 1]->tmp_hdcount = 0;
+	int	x;
+
+	x = 1;
+	while (x < i + 1)
+	{
+		if (i > 0 && g_arg.cmds[x - 1]->tmp_hdcount != 0)
+			while (1)
+				if (g_arg.cmds[x - 1]->tmp_hdcount == 0)
+					break ;
+		x++;
+	}
+	if (g_arg.cmds[i]->heredoc_count != 0)
+		open_heredoc(g_arg.cmds[i], i);
+	else
+		close_heredoc_tubes();
 }
 
-int	cmd_process(char **envp, int i, int j)
+int	cmd_process(char **envp, int i)
 {
 	int	x;
 
@@ -97,26 +106,7 @@ int	cmd_process(char **envp, int i, int j)
 	g_arg.pid[i] = fork();
 	if (g_arg.pid[i] == 0)
 	{
-		while (x < i + 1)
-		{
-			if (i > 0 && g_arg.cmds[x - 1]->tmp_hdcount != 0)
-			{
-				while (1)
-				{
-					if (g_arg.cmds[x - 1]->tmp_hdcount == 0)
-					{
-						printf("mmmmmmmmmmmmmmmmmm\n");
-						break ;
-					}
-				}
-			}
-			x++;
-		}
-		if (g_arg.cmds[i]->heredoc_count != 0)
-			open_heredoc(g_arg.cmds[i], i);
-		else
-			close_heredoc_tubes();
-		printf("i: %d\n", i);
+		waited_heredoc(i);
 		close_fd(g_arg.cmds[i]);
 		dup2(g_arg.cmds[i]->fd_in, STDIN_FILENO);
 		dup2(g_arg.cmds[i]->fd_out, STDOUT_FILENO);

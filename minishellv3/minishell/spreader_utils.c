@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spreader_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:25:52 by melih             #+#    #+#             */
-/*   Updated: 2023/05/10 20:36:24 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/11 05:15:58 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	count_arg(void)
 int	flag_setter(void)
 {
 	t_arg_list	*temp;
-	int	i;
+	int			i;
 
 	temp = g_arg.list;
 	i = 0;
@@ -65,7 +65,6 @@ int	count_cmd_arg(t_arg_list *temp)
 			break ;
 		temp = temp->next;
 	}
-	printf("count_cmd_arg: %d\n", i);
 	return (i);
 }
 

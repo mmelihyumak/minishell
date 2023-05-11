@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:46 by melih             #+#    #+#             */
-/*   Updated: 2023/05/10 20:35:51 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/11 05:39:58 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ struct s_arg
 	char		**cmd_paths;
 	char		**cmd_args;
 	char		**args_temp;
-	//char		**args;
 	char		**env;
 	char		**exports;
 	char		***commands;
@@ -79,7 +78,7 @@ struct s_arg
 
 char		*find_path(char **envp);
 char		*get_cmd(char **paths, char *cmd);
-int			cmd_process(char **envp, int i, int j);
+int			cmd_process(char **envp, int i);
 void		sigquit_voider(int signal);
 void		eof_control(char *line);
 void		sigint_voider(int signal);
@@ -133,6 +132,7 @@ void		open_heredoc(t_cmd *command, int x);
 void		set_heredoc_tubes(t_cmd *command);
 void		close_heredoc_tubes(void);
 void		close_other_heredocs(t_cmd *command);
+void		last_of_list(void);
 
 
 void	print_input(char **strings);

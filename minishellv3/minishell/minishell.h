@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:46 by melih             #+#    #+#             */
-/*   Updated: 2023/05/17 04:38:24 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/05/17 04:51:31 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,6 @@ void		set_export(void);
 void		exec_cd(int query);
 void		go_back(char *env_pwd);
 void		here_doc_process(t_cmd *command, int hd_id);
-char		*ft_strjoin_v2(char *str, char *buff);
 int			ft_strcmp(char *s1, char *s2);
 void		count_heredoc(t_cmd *command);
 void		set_heredocs(void);

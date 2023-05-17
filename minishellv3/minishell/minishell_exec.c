@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 02:25:38 by melih             #+#    #+#             */
-/*   Updated: 2023/05/11 20:06:08 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/16 23:53:14 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,7 @@ void	open_heredoc(t_cmd *command, int x)
 	{
 		here_doc_process(command, i);
 		if (i == command->heredoc_count - 1)
-		{
 			close(command->heredoc[i].tubes[1]);
-		}
 		wait(&command->heredoc[i].pid);
 	}
 	kill(0, SIGUSR1);

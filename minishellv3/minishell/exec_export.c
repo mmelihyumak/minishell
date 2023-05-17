@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_export.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 23:41:47 by melih             #+#    #+#             */
-/*   Updated: 2023/04/27 23:50:28 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/17 04:43:25 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ int	check_envp(char *value)
 	{
 		if (!ft_strncmp(g_arg.env[i], value, ft_strlen_equal(value)))
 		{
-			if (!ft_strncmp(g_arg.env[i], value, ft_strlen(value)))
+			if (!ft_strcmp(g_arg.env[i], value))
 				return (1);
 			else
-				break ;
+				put_env(value, i, 0);
 		}
 		i++;
 	}
@@ -55,11 +55,13 @@ int	check_envp(char *value)
 	{
 		if (!ft_strncmp(&g_arg.exports[i][11], value, ft_strlen_equal(value)))
 		{
-			if (!ft_strncmp(&g_arg.exports[i][11], value, ft_strlen(value)))
+			if (!ft_strcmp(&g_arg.exports[i][11], value))
 				return (1);
 			else
 			{
 				put_export(value, i, 0);
+				if (!equal_control(value))
+					put_env(value, i, 0);
 				return (1);
 			}
 		}
@@ -73,39 +75,23 @@ void	exec_export(int	query)
 	int	i;
 	int	j;
 
-	if (g_arg.cmds[query]->cmd_args[1] == 0)
+	j = 0;
+	i = split_len(g_arg.env);
+	while (g_arg.cmds[query]->cmd_args[++j])
 	{
-		i = -1;
-		while (g_arg.exports[++i])
-			ft_smart_putstr(g_arg.exports[i]);
-	}
-	else
-	{
-		j = 0;
-		i = split_len(g_arg.env);
-		while (g_arg.cmds[query]->cmd_args[++j])
+		if (!check_envp(g_arg.cmds[query]->cmd_args[j]))
 		{
-			if (!check_envp(g_arg.cmds[query]->cmd_args[j]))
+			if (!equal_control(g_arg.cmds[query]->cmd_args[j]))
 			{
-				if (!equal_control(g_arg.cmds[query]->cmd_args[j]))
-				{
-					g_arg.env[i] = ft_strdup(g_arg.cmds[query]->cmd_args[j]);
-					i++;
-					g_arg.env[i] = malloc(sizeof(char *));
-					g_arg.env[i] = 0;
-					put_export(g_arg.cmds[query]->cmd_args[j], split_len(g_arg.exports), 1);
-				}
-				else
-				{
-					put_export(g_arg.cmds[query]->cmd_args[j], split_len(g_arg.exports), 1);
-				/*	i = split_len(g_arg.exports);
-					free(g_arg.exports[i]);
-					g_arg.exports[i] = ft_strjoin("declare -x ", g_arg.args[j]);
-					i++;
-					g_arg.exports[i] = malloc(sizeof(char *));
-					g_arg.exports[i] = 0;*/
-				}
+				if (g_arg.env[i] != NULL)
+					free(g_arg.env[i]);
+				g_arg.env[i] = ft_strdup(g_arg.cmds[query]->cmd_args[j]);
+				i++;
+				g_arg.env[i] = 0;
+				put_export(g_arg.cmds[query]->cmd_args[j], split_len(g_arg.exports), 1);
 			}
+			else
+				put_export(g_arg.cmds[query]->cmd_args[j], split_len(g_arg.exports), 1);
 		}
 	}
 }
@@ -135,29 +121,35 @@ void	put_export(char *arg, int i, int flag)
 	free(g_arg.exports[i]);
 	g_arg.exports[i] = ft_strjoin("declare -x ", arg);
 	if (flag == 1)
-	{
-		i++;
-		g_arg.exports[i] = malloc(sizeof(char *));
-		g_arg.exports[i] = 0;
-	}
+		g_arg.exports[++i] = NULL;
 }
 
-void	ft_smart_putstr(char *arg)
+void	put_env(char *arg, int i, int flag)
+{
+	free(g_arg.env[i]);
+	g_arg.env[i] = ft_strdup(arg);
+	if (flag == 1)
+		g_arg.env[++i] = NULL;
+}
+
+void	ft_smart_putstr(char **strings)
 {
 	int	i;
+	int	j;
 
 	i = -1;
-	while (arg[++i])
+	while(strings[++i])
 	{
-		if (arg[i] == '=')
+		j = -1;
+		while (strings[i][++j])
 		{
-			printf("=");
-			printf("%c", 34);
+			if (strings[i][j] == '=')
+				printf("=\"");
+			else
+				printf("%c", strings[i][j]);
 		}
-		else
-			printf("%c", arg[i]);
+		if (!equal_control(strings[i]))
+			printf("%c", 34);
+		printf("\n");
 	}
-	if (!equal_control(arg))
-		printf("%c", 34);
-	printf("\n");
 }

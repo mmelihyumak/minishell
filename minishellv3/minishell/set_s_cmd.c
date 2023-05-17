@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 21:20:33 by melih             #+#    #+#             */
-/*   Updated: 2023/05/11 05:17:10 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/05/17 04:15:15 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	print_input(char **strings)
 
 	i = -1;
 	while (strings[++i])
-		printf("string[%d]: %s\n", i, strings[i]);
+		printf("%s\n", strings[i]);
 }
 
 void	free_split(char **strings)

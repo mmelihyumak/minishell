@@ -6,20 +6,20 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:29 by melih             #+#    #+#             */
-/*   Updated: 2023/05/11 05:19:41 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/05/17 04:19:27 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_signal(void)
+void handle_signal(void)
 {
 	signal(SIGINT, &sigint_voider);
 	signal(SIGQUIT, &sigquit_voider);
 	signal(SIGUSR1, &signal_handler);
 }
 
-void	set_start(char **envp)
+void set_start(char **envp)
 {
 	handle_signal();
 	get_env(envp);
@@ -30,7 +30,7 @@ void	set_start(char **envp)
 	set_export();
 }
 
-int	main(int argc, char **argv, char **envp)
+int main(int argc, char **argv, char **envp)
 {
 	set_start(envp);
 	while (1)
@@ -47,7 +47,12 @@ int	main(int argc, char **argv, char **envp)
 			if (!pipe_check())
 				spreader();
 			else
-				continue ;
+			{
+				g_arg.arg_count = 0;
+				g_arg.pipe_count = 0;
+				free(g_arg.input);
+				continue;
+			}
 			g_arg.quit_flag = 0;
 			refresh_counts();
 			free(g_arg.input);

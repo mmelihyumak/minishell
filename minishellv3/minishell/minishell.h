@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:46 by melih             #+#    #+#             */
-/*   Updated: 2023/05/25 18:49:27 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/26 21:28:22 by uyilmaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void		close_other_heredocs(t_cmd *command);
 void		last_of_list(void);
 int			executor_v2(int i);
 void		exec_unset(void);
+int			check_quote(char *str);
 
 void	print_input(char **strings);
 void	print_t_cmd(void);

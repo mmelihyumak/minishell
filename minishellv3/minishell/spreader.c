@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spreader.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:40:29 by melih             #+#    #+#             */
-/*   Updated: 2023/05/17 04:15:49 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/05/25 19:23:26 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,17 @@ int	executor_v2(int i)
 			return (1);
 		return (0);
 	}
-	if (!ft_strcmp("cd", g_arg.cmds[i]->cmd_args[0]))
+	else if (!ft_strcmp("cd", g_arg.cmds[i]->cmd_args[0]))
 	{
 		exec_cd(i);
+		return (0);
+	}
+	else if (!ft_strcmp("unset", g_arg.cmds[i]->cmd_args[0]))
+	{
+		if (split_len(g_arg.cmds[0]->cmd_args) > 1)
+			exec_unset();
+		else
+			return (2);
 		return (0);
 	}
 	return (1);
@@ -95,7 +103,7 @@ void	spreader_v3(void)
 	set_heredocs();
 	i = -1;
 	while (++i < g_arg.pipe_count + 1)
-		if (executor_v2(i))
+		if (executor_v2(i) == 1)
 			cmd_process(g_arg.env, i);
 	close_heredoc_tubes();
 	close_tubes();

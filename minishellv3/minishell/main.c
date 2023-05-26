@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:29 by melih             #+#    #+#             */
-/*   Updated: 2023/05/17 04:19:27 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/05/25 18:20:53 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@ void set_start(char **envp)
 	handle_signal();
 	get_env(envp);
 	g_arg.list = NULL;
-	g_arg.paths = find_path(g_arg.env);
-	g_arg.cmd_paths = ft_split(g_arg.paths, ':');
-	g_arg.pwd = find_pwd(g_arg.env);
 	set_export();
 }
 
@@ -44,6 +41,9 @@ int main(int argc, char **argv, char **envp)
 			last_of_list();
 			count_arg();
 			flag_setter();
+			find_path(g_arg.env);
+			g_arg.cmd_paths = ft_split(g_arg.paths, ':');
+			find_pwd(g_arg.env);
 			if (!pipe_check())
 				spreader();
 			else

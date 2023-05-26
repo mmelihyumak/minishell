@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 02:25:38 by melih             #+#    #+#             */
-/*   Updated: 2023/05/16 23:53:14 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/05/26 16:36:29 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*find_path(char **envp)
+void	find_path(char **envp)
 {
 	int	i;
 
@@ -20,22 +20,26 @@ char	*find_path(char **envp)
 	while (envp[++i])
 	{
 		if (!ft_strncmp("PATH", envp[i], 4))
-			return (envp[i] + 5);
+		{
+			g_arg.paths = ft_strdup(envp[i] + 5);
+			return ;
+		}
 	}
-	return (0);
+	g_arg.paths = NULL;
 }
 
-char	*find_pwd(char **envp)
+void	find_pwd(char **envp)
 {
 	int	i;
 
 	i = -1;
 	while (envp[++i])
-	{
 		if (!ft_strncmp("PWD", envp[i], 3))
-			return (envp[i] + 4);
-	}
-	return (0);
+		{
+			g_arg.pwd = ft_strdup(envp[i] + 4);
+			return ;			
+		}
+	g_arg.pwd = NULL;
 }
 
 void	here_doc_process(t_cmd *command, int hd_id)
@@ -134,6 +138,8 @@ char	*get_cmd(char **paths, char *cmd)
 	char	*command;
 	char	*tmp;
 
+	if (paths == NULL || *cmd == 0)
+		return (0);
 	while (*paths)
 	{
 		tmp = ft_strjoin(*paths, "/");

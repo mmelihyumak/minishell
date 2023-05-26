@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_s_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 21:20:33 by melih             #+#    #+#             */
-/*   Updated: 2023/05/17 04:15:15 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/05/25 18:19:48 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ void	print_input(char **strings)
 
 	i = -1;
 	while (strings[++i])
-		printf("%s\n", strings[i]);
+		if (strings[i] != NULL)
+			printf("%s\n", strings[i]);
 }
 
 void	free_split(char **strings)

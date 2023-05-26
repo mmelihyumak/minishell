@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:46 by melih             #+#    #+#             */
-/*   Updated: 2023/05/17 04:51:31 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/05/25 18:49:27 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,13 @@ struct s_arg
 	t_arg_list	*list;
 }	g_arg;
 
-char		*find_path(char **envp);
+void		find_path(char **envp);
 char		*get_cmd(char **paths, char *cmd);
 int			cmd_process(char **envp, int i);
 void		sigquit_voider(int signal);
 void		eof_control(char *line);
 void		sigint_voider(int signal);
-char		*find_pwd(char **envp);
+void		find_pwd(char **envp);
 void		ft_lstdelone_v2(t_arg_list **lst);
 void		ft_lstclear_v2(t_arg_list **lst);
 t_arg_list	*ft_lstnew_v2(char *content, char flag);
@@ -134,7 +134,7 @@ void		close_heredoc_tubes(void);
 void		close_other_heredocs(t_cmd *command);
 void		last_of_list(void);
 int			executor_v2(int i);
-
+void		exec_unset(void);
 
 void	print_input(char **strings);
 void	print_t_cmd(void);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_export.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 23:41:47 by melih             #+#    #+#             */
-/*   Updated: 2023/05/17 04:43:25 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/05/25 19:08:24 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	set_export(void)
 	g_arg.exports = malloc(sizeof(char *) * (variable_count + 1));
 	i = -1;
 	while (g_arg.env[++i])
-		g_arg.exports[i] = ft_strjoin("declare -x ", g_arg.env[i]);
+		g_arg.exports[i] = ft_strdup(g_arg.env[i]);
 }
 
 int	ft_strlen_equal(char *arg)
@@ -53,9 +53,9 @@ int	check_envp(char *value)
 	i = 0;
 	while (g_arg.exports[i])
 	{
-		if (!ft_strncmp(&g_arg.exports[i][11], value, ft_strlen_equal(value)))
+		if (!ft_strncmp(g_arg.exports[i], value, ft_strlen_equal(value)))
 		{
-			if (!ft_strcmp(&g_arg.exports[i][11], value))
+			if (!ft_strcmp(g_arg.exports[i], value))
 				return (1);
 			else
 			{
@@ -119,7 +119,7 @@ void	exec_env(void)
 void	put_export(char *arg, int i, int flag)
 {
 	free(g_arg.exports[i]);
-	g_arg.exports[i] = ft_strjoin("declare -x ", arg);
+	g_arg.exports[i] = ft_strdup(arg);
 	if (flag == 1)
 		g_arg.exports[++i] = NULL;
 }
@@ -141,6 +141,7 @@ void	ft_smart_putstr(char **strings)
 	while(strings[++i])
 	{
 		j = -1;
+		printf("declare -x ");
 		while (strings[i][++j])
 		{
 			if (strings[i][j] == '=')

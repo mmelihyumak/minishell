@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spreader_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:25:52 by melih             #+#    #+#             */
-/*   Updated: 2023/05/17 03:42:00 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/05/25 21:47:22 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,12 @@ void	refresh_counts(void)
 		g_arg.arg_count = 0;
 		g_arg.pipe_count = 0;
 		g_arg.sigusr_i = 0;
+		if (g_arg.pwd != NULL)
+			free(g_arg.pwd);
+		if (g_arg.paths != NULL)
+			free(g_arg.paths);
+		if (g_arg.cmd_paths != NULL)
+			free_split(g_arg.cmd_paths);
 	}
 }
 

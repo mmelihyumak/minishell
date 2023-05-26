@@ -6,21 +6,23 @@
 /*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:46 by melih             #+#    #+#             */
-/*   Updated: 2023/05/26 21:28:22 by uyilmaz          ###   ########.fr       */
+/*   Updated: 2023/05/27 00:28:36 by uyilmaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include <readline/readline.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <sys/ioctl.h>
 # include <signal.h>
 # include <dirent.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include "./libft/libft.h"
 
 typedef struct s_heredoc
@@ -137,9 +139,9 @@ int			executor_v2(int i);
 void		exec_unset(void);
 int			check_quote(char *str);
 
-void	print_input(char **strings);
-void	print_t_cmd(void);
-void	print_closing_fd(int fd);
-void	signal_handler(int signal);
+void		print_input(char **strings);
+void		print_t_cmd(void);
+void		print_closing_fd(int fd);
+void		signal_handler(int signal);
 
 #endif

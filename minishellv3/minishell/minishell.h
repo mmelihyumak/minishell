@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:46 by melih             #+#    #+#             */
-/*   Updated: 2023/05/27 00:28:36 by uyilmaz          ###   ########.fr       */
+/*   Updated: 2023/05/29 01:25:00 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <dirent.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <limits.h>
 # include "./libft/libft.h"
 
 typedef struct s_heredoc
@@ -118,26 +119,28 @@ int			executor(int i);
 void		exec_echo(int j);
 int			ft_strlen_equal(char *arg);
 int			check_envp(char *value);
+int			check_export(char *value);
 void		exec_export(int	query);
 int			equal_control(char *arg);
-void		put_export(char *arg, int i, int flag);
-void		put_env(char *arg, int i, int flag);
+void		put_export(char *value);
+void		put_env(char *value);
 void		ft_smart_putstr(char **strings);
 void		set_export(void);
 void		exec_cd(int query);
-void		go_back(char *env_pwd);
 void		here_doc_process(t_cmd *command, int hd_id);
 int			ft_strcmp(char *s1, char *s2);
 void		count_heredoc(t_cmd *command);
 void		set_heredocs(void);
 void		open_heredoc(t_cmd *command, int x);
-void		set_heredoc_tubes(t_cmd *command);
 void		close_heredoc_tubes(void);
 void		close_other_heredocs(t_cmd *command);
 void		last_of_list(void);
 int			executor_v2(int i);
 void		exec_unset(void);
 int			check_quote(char *str);
+
+
+void		exec_echo_v2(int j);
 
 void		print_input(char **strings);
 void		print_t_cmd(void);

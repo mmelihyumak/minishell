@@ -6,7 +6,7 @@
 /*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 23:41:47 by melih             #+#    #+#             */
-/*   Updated: 2023/05/25 19:08:24 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/29 01:24:34 by melih            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	set_export(void)
 	i = -1;
 	while (g_arg.env[++i])
 		g_arg.exports[i] = ft_strdup(g_arg.env[i]);
+	g_arg.exports[i] = 0;
 }
 
 int	ft_strlen_equal(char *arg)
@@ -38,61 +39,42 @@ int	check_envp(char *value)
 {
 	int	i;
 
-	i = 0;
-	while (g_arg.env[i])
+	i = -1;
+	while (g_arg.env[++i])
 	{
-		if (!ft_strncmp(g_arg.env[i], value, ft_strlen_equal(value)))
-		{
-			if (!ft_strcmp(g_arg.env[i], value))
-				return (1);
-			else
-				put_env(value, i, 0);
-		}
-		i++;
+		if (ft_strlen_equal(g_arg.env[i]) == ft_strlen_equal(value))
+			if (!ft_strncmp(g_arg.env[i], value, ft_strlen_equal(g_arg.env[i])))
+				return (i);
 	}
-	i = 0;
-	while (g_arg.exports[i])
+	return (-1);
+}
+
+int	check_export(char *value)
+{
+	int	i;
+
+	i = -1;
+	while (g_arg.exports[++i])
 	{
-		if (!ft_strncmp(g_arg.exports[i], value, ft_strlen_equal(value)))
-		{
-			if (!ft_strcmp(g_arg.exports[i], value))
-				return (1);
-			else
-			{
-				put_export(value, i, 0);
-				if (!equal_control(value))
-					put_env(value, i, 0);
-				return (1);
-			}
-		}
-		i++;
+		if (ft_strlen_equal(g_arg.exports[i]) == ft_strlen_equal(value))
+			if (!ft_strncmp(g_arg.exports[i], value, ft_strlen_equal(g_arg.exports[i])))
+				return (i);
 	}
-	return (0);
+	return (-1);
 }
 
 void	exec_export(int	query)
 {
 	int	i;
-	int	j;
+	int	len;
 
-	j = 0;
-	i = split_len(g_arg.env);
-	while (g_arg.cmds[query]->cmd_args[++j])
+	i = 0;
+	len = split_len(g_arg.cmds[0]->cmd_args);
+	while (++i < len)
 	{
-		if (!check_envp(g_arg.cmds[query]->cmd_args[j]))
-		{
-			if (!equal_control(g_arg.cmds[query]->cmd_args[j]))
-			{
-				if (g_arg.env[i] != NULL)
-					free(g_arg.env[i]);
-				g_arg.env[i] = ft_strdup(g_arg.cmds[query]->cmd_args[j]);
-				i++;
-				g_arg.env[i] = 0;
-				put_export(g_arg.cmds[query]->cmd_args[j], split_len(g_arg.exports), 1);
-			}
-			else
-				put_export(g_arg.cmds[query]->cmd_args[j], split_len(g_arg.exports), 1);
-		}
+		put_export(g_arg.cmds[0]->cmd_args[i]);
+		if (!equal_control(g_arg.cmds[0]->cmd_args[i]))
+			put_env(g_arg.cmds[0]->cmd_args[i]);
 	}
 }
 
@@ -107,29 +89,58 @@ int	equal_control(char *arg)
 	return (1);
 }
 
-void	exec_env(void)
+void	put_export(char *value)
 {
-	int	i;
+	char	**temp;
+	int		len;
+	int		i;
+	int		index;
 
-	i = -1;
-	while (g_arg.env[++i])
-		printf("%s\n", g_arg.env[i]);
+	index = check_export(value);
+	if (index == -1)
+	{
+		len = split_len(g_arg.exports);
+		temp = malloc(sizeof(char *) * (len + 2));
+		i = -1;
+		while (g_arg.exports[++i])
+			temp[i] = ft_strdup(g_arg.exports[i]);
+		temp[i] = ft_strdup(value);
+		temp[++i] = 0;
+		free_split(g_arg.exports);
+		g_arg.exports = temp;
+	}
+	else
+	{
+		free(g_arg.exports[index]);
+		g_arg.exports[index] = ft_strdup(value);
+	}
 }
 
-void	put_export(char *arg, int i, int flag)
+void	put_env(char *value)
 {
-	free(g_arg.exports[i]);
-	g_arg.exports[i] = ft_strdup(arg);
-	if (flag == 1)
-		g_arg.exports[++i] = NULL;
-}
+	char	**temp;
+	int		len;
+	int		i;
+	int		index;
 
-void	put_env(char *arg, int i, int flag)
-{
-	free(g_arg.env[i]);
-	g_arg.env[i] = ft_strdup(arg);
-	if (flag == 1)
-		g_arg.env[++i] = NULL;
+	index = check_envp(value);
+	if (index == -1)
+	{
+		len = split_len(g_arg.env);
+		temp = malloc(sizeof(char *) * (len + 2));
+		i = -1;
+		while (g_arg.env[++i])
+			temp[i] = ft_strdup(g_arg.env[i]);
+		temp[i] = ft_strdup(value);
+		temp[++i] = 0;
+		free_split(g_arg.env);
+		g_arg.env = temp;
+	}
+	else
+	{
+		free(g_arg.env[index]);
+		g_arg.env[index] = ft_strdup(value);
+	}
 }
 
 void	ft_smart_putstr(char **strings)

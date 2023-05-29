@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_signal.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 02:43:50 by uyilmaz           #+#    #+#             */
-/*   Updated: 2023/05/28 20:34:31 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/29 22:00:57 by uyilmaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,22 @@
 
 void	sigint_voider(int signal)
 {
+	//write(1, "\033[2D", 2); //yukari
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 	(void)signal;
-	write(1, "\033[A", 3);
-	ioctl(0, TIOCSTI, "\n");
+	//write(1, "\033[32mminishell$   ", 18);
 }
 
 void	eof_control(char *line)
 {
 	if (!line)
 	{
-		write(1, "\033[2D", 4);
-		printf("exit\n");
+		write(1, "\033[A", 3);
+		write(1, "\033[32mminishell$ ", 16);
+		write(1, "\033[0mexit\n", 9);
 		exit (0);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:29 by melih             #+#    #+#             */
-/*   Updated: 2023/05/27 20:42:57 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/29 22:08:38 by uyilmaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	handle_signal(void)
 {
 	signal(SIGINT, &sigint_voider);
-	signal(SIGQUIT, &sigquit_voider);
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGUSR1, &signal_handler);
 }
 
@@ -45,7 +45,7 @@ int	main(int argc, char **argv, char **envp)
 	set_start(envp);
 	while (1)
 	{
-		g_arg.input = readline("minishell$ ");
+		g_arg.input = readline("\033[1;32mminishell\033[34m$ \033[0m");
 		eof_control(g_arg.input);
 		if (*g_arg.input != '\n' && *g_arg.input != '\0')
 		{

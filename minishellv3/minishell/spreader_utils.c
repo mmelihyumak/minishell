@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spreader_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:25:52 by melih             #+#    #+#             */
-/*   Updated: 2023/05/25 21:47:22 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/29 23:39:42 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	count_arg(void)
 		g_arg.arg_count++;
 		temp = temp->next;
 	}
+	g_arg.pipe_count++;
 }
 
 int	flag_setter(void)
@@ -74,7 +75,7 @@ void	refresh_counts(void)
 	{
 		free_commands();
 		g_arg.arg_count = 0;
-		g_arg.pipe_count = 0;
+		g_arg.pipe_count = -1;
 		g_arg.sigusr_i = 0;
 		if (g_arg.pwd != NULL)
 			free(g_arg.pwd);
@@ -103,6 +104,7 @@ void	free_commands(void)
 	free(g_arg.cmds);
 	free(g_arg.commands);
 	free(g_arg.pid);
+	g_arg.pid = NULL;
 	i = -1;
 	while (++i < g_arg.pipe_count)
 		free(g_arg.tubes[i]);

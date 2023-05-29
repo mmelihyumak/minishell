@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:29 by melih             #+#    #+#             */
-/*   Updated: 2023/05/29 22:08:38 by uyilmaz          ###   ########.fr       */
+/*   Updated: 2023/05/29 23:37:25 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	handle_signal(void)
 	signal(SIGINT, &sigint_voider);
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGUSR1, &signal_handler);
+	signal(SIGUSR2, &signal_handler);
 }
 
 void	set_start(char **envp)
@@ -25,6 +26,7 @@ void	set_start(char **envp)
 	get_env(envp);
 	g_arg.list = NULL;
 	set_export();
+	g_arg.pipe_count = -1;
 }
 
 void	routine(void)

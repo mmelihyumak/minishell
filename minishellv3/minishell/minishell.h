@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:46 by melih             #+#    #+#             */
-/*   Updated: 2023/05/29 22:07:13 by uyilmaz          ###   ########.fr       */
+/*   Updated: 2023/05/29 23:15:37 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ struct s_arg
 	int			cmd_index;
 	int			exit_status;
 	int			sigusr_i;
+	int			close_process;
 	int			**tubes;
 	t_cmd		**cmds;
 	t_arg_list	*list;
@@ -140,7 +141,7 @@ void		exec_unset(void);
 int			check_quote(char *str);
 
 
-void		exec_echo_v2(int j);
+void		child_signal_handler(int signal);
 
 void		print_input(char **strings);
 void		print_t_cmd(void);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 02:25:38 by melih             #+#    #+#             */
-/*   Updated: 2023/05/26 16:36:29 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/30 00:09:42 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,11 @@ void	here_doc_process(t_cmd *command, int hd_id)
 			if (hd_id == command->heredoc_count - 1)
 				close(command->heredoc[hd_id].tubes[0]);
 			command->heredoc[hd_id].input = readline("> ");
-			if (ft_strcmp(command->heredoc[hd_id].input, command->heredoc[hd_id].here_doc_name) == 0)
+			if (ft_strcmp(command->heredoc[hd_id].input, command->heredoc[hd_id].here_doc_name) == 0 || g_arg.close_process == 1)
+			{
+				printf("is_here\n");
 				exit(0);				
+			}
 			temp = ft_strjoin(command->heredoc[hd_id].input, "\n");
 			if (hd_id == command->heredoc_count - 1)
 				write(command->heredoc[hd_id].tubes[1], temp, ft_strlen(temp));
@@ -108,6 +111,7 @@ int	cmd_process(char **envp, int i)
 	g_arg.pid[i] = fork();
 	if (g_arg.pid[i] == 0)
 	{
+		signal(SIGUSR2, child_signal_handler);
 		waited_heredoc(i);
 		close_fd(g_arg.cmds[i]);
 		dup2(g_arg.cmds[i]->fd_in, STDIN_FILENO);

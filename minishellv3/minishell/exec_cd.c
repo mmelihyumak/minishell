@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 03:49:17 by melih             #+#    #+#             */
-/*   Updated: 2023/05/29 01:55:32 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/31 18:25:56 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,17 @@ void	exec_cd(int query)
 		free(temp);
 	}
 	else if (split_len(g_arg.cmds[0]->cmd_args) == 2)
-		chdir(g_arg.cmds[0]->cmd_args[1]);
+	{
+		if (g_arg.cmds[0]->cmd_args[1][0] == '~')
+		{
+			temp = get_variable("HOME");
+			temp = ft_strjoin(temp, &g_arg.cmds[0]->cmd_args[1][1]);
+			chdir(temp);
+			free(temp);
+		}
+		else
+			chdir(g_arg.cmds[0]->cmd_args[1]);
+	}
 	cwd = malloc(sizeof(char) * PATH_MAX);
 	getcwd(cwd, PATH_MAX);
 	temp = ft_strjoin("PWD=", cwd);

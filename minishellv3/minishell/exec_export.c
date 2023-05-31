@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_export.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 23:41:47 by melih             #+#    #+#             */
-/*   Updated: 2023/05/29 01:24:34 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/31 21:13:35 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,12 @@ void	exec_export(int	query)
 
 	i = 0;
 	len = split_len(g_arg.cmds[0]->cmd_args);
+	while (++i < len)
+	{
+		if (!is_exportable(g_arg.cmds[0]->cmd_args[i]))
+			printf("minishell: export: ...: not a valid identifier\n");
+	}
+	i = 0;
 	while (++i < len)
 	{
 		put_export(g_arg.cmds[0]->cmd_args[i]);

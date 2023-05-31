@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:46 by melih             #+#    #+#             */
-/*   Updated: 2023/05/31 19:00:05 by uyilmaz          ###   ########.fr       */
+/*   Updated: 2023/05/31 21:14:07 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,8 @@ void		last_of_list(void);
 int			executor_v2(int i);
 void		exec_unset(void);
 int			check_quote(char *str);
+char		*get_variable(char *str);
+int			is_exportable(char *str);
 
 
 void		child_signal_handler(int signal);

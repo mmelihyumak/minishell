@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:47:34 by melih             #+#    #+#             */
-/*   Updated: 2023/04/29 04:07:08 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/31 21:13:54 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,19 @@ int	split_len(char **strings)
 	while (strings[i])
 		i++;
 	return (i);
+}
+
+char	*get_variable(char *str)
+{
+	int	len;
+	int	i;
+	
+	len = ft_strlen(str);
+	i = -1;
+	while (g_arg.env[++i])
+		if (!ft_strncmp(str, g_arg.env[i], len))
+			return (g_arg.env[i] + len + 1);
+	return (0);
 }
 
 void	get_env(char **envp)

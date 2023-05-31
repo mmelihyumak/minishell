@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:29 by melih             #+#    #+#             */
-/*   Updated: 2023/05/31 19:16:52 by uyilmaz          ###   ########.fr       */
+/*   Updated: 2023/05/31 21:05:00 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int	routine(void)
 {
 	count_arg();
 	flag_setter();
-	find_path(g_arg.env);
+	g_arg.paths = ft_strdup(get_variable("PATH"));
 	g_arg.cmd_paths = ft_split(g_arg.paths, ':');
-	find_pwd(g_arg.env);
+	g_arg.pwd = ft_strdup(get_variable("PWD"));
 	if (spreader())
 	{
 		refresh_counts();

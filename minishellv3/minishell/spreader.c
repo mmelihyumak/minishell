@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:40:29 by melih             #+#    #+#             */
-/*   Updated: 2023/05/31 15:46:38 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/05/31 21:08:01 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,8 @@ int	spreader(void)
 		return (1);
 	return (0);
 }
+
+// ALTTAKİ FONKSİYON SİLİNECEK
 
 void	print_t_cmd(void)
 {

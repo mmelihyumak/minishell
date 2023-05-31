@@ -3,44 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 02:25:38 by melih             #+#    #+#             */
-/*   Updated: 2023/05/31 18:55:46 by uyilmaz          ###   ########.fr       */
+/*   Updated: 2023/05/31 21:07:34 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	find_path(char **envp)
-{
-	int	i;
-
-	i = -1;
-	while (envp[++i])
-	{
-		if (!ft_strncmp("PATH", envp[i], 4))
-		{
-			g_arg.paths = ft_strdup(envp[i] + 5);
-			return ;
-		}
-	}
-	g_arg.paths = NULL;
-}
-
-void	find_pwd(char **envp)
-{
-	int	i;
-
-	i = -1;
-	while (envp[++i])
-		if (!ft_strncmp("PWD", envp[i], 3))
-		{
-			g_arg.pwd = ft_strdup(envp[i] + 4);
-			return ;			
-		}
-	g_arg.pwd = NULL;
-}
 
 void	here_doc_process(t_cmd *command, int hd_id)
 {
@@ -135,7 +105,7 @@ int	cmd_process(char **envp, int i)
 
 void	print_closing_fd(int fd)
 {
-	printf("closing_fd: %d\n", fd);
+	printf("closing_fd: %d\n", fd); // Bu fonksiyon silinecek!
 }
 
 char	*get_cmd(char **paths, char *cmd)

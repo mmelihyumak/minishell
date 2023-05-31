@@ -6,7 +6,7 @@
 /*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 00:57:50 by melih             #+#    #+#             */
-/*   Updated: 2023/05/26 21:28:00 by uyilmaz          ###   ########.fr       */
+/*   Updated: 2023/05/31 17:53:16 by uyilmaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,19 @@ int	check_quote(char *str)
 		}
 	}
 	return (0);
+}
+
+int	is_exportable(char *str)
+{
+	int	i;
+
+	if (!ft_isalpha(*str))
+		return (0);
+	i = -1;
+	while (str[++i])
+	{
+		if (!ft_isalnum(str[i]))
+			return (0);
+	}
+	return (1);
 }

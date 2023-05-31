@@ -19,11 +19,7 @@ CC			=		gcc -g
 
 CFLAGS		=		-I./lib/readline/include
 
-LDFLAGS 	= 		-L./lib/readline/lib -lreadline
-
 RM			=		rm -rf
-
-LIB 		= 		./lib/.minishell
 
 all:	$(LIB)	$(NAME) $(LIBFT)
 
@@ -35,9 +31,6 @@ $(NAME):	$(OBJS) $(LIBFT)
 				@echo $(BLUE) "Creating minishell..."$(END)
 				@$(CC) $(CFLAGS) $(OBJS) libft/libft.a -lreadline -o $(NAME)
 				@echo $(GREEN) "Minishell created."$(END)
-
-$(LIB):
-	@make -C ./lib
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
@@ -52,10 +45,6 @@ fclean:		clean
 				@$(RM) $(NAME)
 			@echo $(BLUE) "Removing libft.a..."$(END)
 			@make fclean -C libft
-
-ffclean:
-		@make fclean
-		@make fclean -C ./lib
 
 re:			fclean all
 

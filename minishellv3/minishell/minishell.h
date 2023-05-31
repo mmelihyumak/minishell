@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:46 by melih             #+#    #+#             */
-/*   Updated: 2023/05/31 15:10:38 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/05/31 19:00:05 by uyilmaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ struct s_arg
 	int			sigusr_i;
 	int			close_process;
 	int			**tubes;
+	int			input_ctl;
 	t_cmd		**cmds;
 	t_arg_list	*list;
 }	g_arg;

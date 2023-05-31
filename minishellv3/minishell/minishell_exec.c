@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_exec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
+/*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 02:25:38 by melih             #+#    #+#             */
-/*   Updated: 2023/05/31 13:39:21 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/05/31 18:55:46 by uyilmaz          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	here_doc_process(t_cmd *command, int hd_id)
 			if (ft_strcmp(command->heredoc[hd_id].input, command->heredoc[hd_id].here_doc_name) == 0 || g_arg.close_process == 1)
 			{
 				printf("is_here\n");
-				exit(0);				
+				exit (0);				
 			}
 			temp = ft_strjoin(command->heredoc[hd_id].input, "\n");
 			if (hd_id == command->heredoc_count - 1)

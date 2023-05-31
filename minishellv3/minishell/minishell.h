@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:46 by melih             #+#    #+#             */
-/*   Updated: 2023/05/29 23:15:37 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/05/31 15:10:38 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,14 +100,14 @@ char		*get_env_var(char *str, char **env, int *i, int *j);
 int			ft_strlen_v2(char *str, char q, int i);
 void		count_arg(void);
 void		refresh_counts(void);
-void		spreader(void);
+int			spreader(void);
 void		open_pipes(void);
 int			count_cmd_arg(t_arg_list *temp);
 int			flag_setter(void);
 void		free_split(char **strings);
 void		t_cmd_settings(void);
 void		free_commands(void);
-void		set_fds(void);
+int			set_fds(void);
 int			pipe_check(void);
 void		set_tubes(void);
 void		close_tubes(void);

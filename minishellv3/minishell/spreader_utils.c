@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:25:52 by melih             #+#    #+#             */
-/*   Updated: 2023/05/29 23:39:42 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/05/31 14:55:10 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,12 @@ int	flag_setter(void)
 			temp->flag = 'h';
 			if (temp->next)
 				temp->next->flag = 'e';
+		}
+		if (ft_strcmp(temp->content, ">>") == 0)
+		{
+			temp->flag = 'a';
+			if (temp->next)
+				temp->next->flag = 'p';
 		}
 		temp = temp->next;
 	}

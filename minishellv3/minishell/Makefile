@@ -15,7 +15,7 @@ OBJS		=		$(SRCS:.c=.o)
 
 NAME		=		minishell
 
-CC			=		gcc
+CC			=		gcc -g
 
 CFLAGS		=		-I./lib/readline/include
 
@@ -33,7 +33,7 @@ $(LIBFT):
 
 $(NAME):	$(OBJS) $(LIBFT)
 				@echo $(BLUE) "Creating minishell..."$(END)
-				@$(CC) $(CFLAGS) $(OBJS) libft/libft.a $(LDFLAGS) -o $(NAME)
+				@$(CC) $(CFLAGS) $(OBJS) libft/libft.a -lreadline -o $(NAME)
 				@echo $(GREEN) "Minishell created."$(END)
 
 $(LIB):

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   spreader.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:40:29 by melih             #+#    #+#             */
-/*   Updated: 2023/05/29 00:56:27 by melih            ###   ########.fr       */
+/*   Updated: 2023/05/31 15:46:38 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,13 +93,14 @@ int	spreader_v2(t_arg_list **list, int j)
 	return (0);
 }
 
-void	spreader_v3(void)
+int	spreader_v3(void)
 {
 	int	i;
 	
 	t_cmd_settings();
 	set_tubes();
-	set_fds();
+	if (set_fds())
+		return (1);
 	set_heredocs();
 	i = -1;
 	while (++i < g_arg.pipe_count + 1)
@@ -108,9 +109,10 @@ void	spreader_v3(void)
 	close_heredoc_tubes();
 	close_tubes();
 	wait_process();
+	return (0);
 }
 
-void	spreader(void)
+int	spreader(void)
 {
 	t_arg_list	*temp;
 	int	j;
@@ -130,7 +132,9 @@ void	spreader(void)
 			break ;
 	}
 	g_arg.commands[j + 1] = NULL;
-	spreader_v3();
+	if (spreader_v3())
+		return (1);
+	return (0);
 }
 
 void	print_t_cmd(void)

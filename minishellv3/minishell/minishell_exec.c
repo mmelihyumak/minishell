@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 02:25:38 by melih             #+#    #+#             */
-/*   Updated: 2023/05/30 00:09:42 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/05/31 13:39:21 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	here_doc_process(t_cmd *command, int hd_id)
 	command->heredoc[hd_id].pid = fork();
 	if (command->heredoc[hd_id].pid == 0)
 	{
+		//signal(SIGUSR2, child_signal_handler);
 		while (1)
 		{
 			if (hd_id == command->heredoc_count - 1)

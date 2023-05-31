@@ -6,11 +6,23 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:29 by melih             #+#    #+#             */
-/*   Updated: 2023/05/29 23:37:25 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/05/31 15:44:57 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	print_flags(void)
+{
+	t_arg_list	*temp;
+
+	temp = g_arg.list;
+	while (temp)
+	{
+		printf("content: %s -- flag: %c\n", temp->content, temp->flag);
+		temp = temp->next;
+	}
+}
 
 void	handle_signal(void)
 {
@@ -22,6 +34,7 @@ void	handle_signal(void)
 
 void	set_start(char **envp)
 {
+	g_arg.pipe_count = -1;
 	handle_signal();
 	get_env(envp);
 	g_arg.list = NULL;
@@ -29,17 +42,23 @@ void	set_start(char **envp)
 	g_arg.pipe_count = -1;
 }
 
-void	routine(void)
+int	routine(void)
 {
 	count_arg();
 	flag_setter();
+	print_flags();
 	find_path(g_arg.env);
 	g_arg.cmd_paths = ft_split(g_arg.paths, ':');
 	find_pwd(g_arg.env);
-	spreader();
+	if (spreader())
+	{
+		refresh_counts();
+		return (1);
+	}
 	g_arg.quit_flag = 0;
 	refresh_counts();
 	free(g_arg.input);
+	return (0);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -58,7 +77,8 @@ int	main(int argc, char **argv, char **envp)
 				free(g_arg.input);
 				continue ;
 			}
-			routine();
+			if (routine())
+				continue ;
 		}
 		else if (*g_arg.input == 0)
 			free(g_arg.input);

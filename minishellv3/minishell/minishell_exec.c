@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 02:25:38 by melih             #+#    #+#             */
-/*   Updated: 2023/05/31 21:07:34 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/01 22:56:36 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ void	here_doc_process(t_cmd *command, int hd_id)
 				close(command->heredoc[hd_id].tubes[0]);
 			command->heredoc[hd_id].input = readline("> ");
 			if (ft_strcmp(command->heredoc[hd_id].input, command->heredoc[hd_id].here_doc_name) == 0 || g_arg.close_process == 1)
-			{
-				printf("is_here\n");
 				exit (0);				
-			}
 			temp = ft_strjoin(command->heredoc[hd_id].input, "\n");
 			if (hd_id == command->heredoc_count - 1)
 				write(command->heredoc[hd_id].tubes[1], temp, ft_strlen(temp));

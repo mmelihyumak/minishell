@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:25:52 by melih             #+#    #+#             */
-/*   Updated: 2023/06/01 21:55:14 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/01 22:35:49 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	flag_setter(void)
 				return (1);
 			}
 		}
-		else if (temp->flag == '<')
+		if (temp->flag == '<')
 		{
 			if (temp->next && temp->next->flag == 'o')
 				temp->next->flag = 'i';
@@ -56,10 +56,10 @@ int	flag_setter(void)
 				return (1);
 			}
 		}
-		else if (ft_strcmp(temp->content, "<<") == 0)
+		if (ft_strcmp(temp->content, "<<") == 0)
 		{
 			temp->flag = 'h';
-			if (temp->next && temp->next->flag == 'o')
+			if (temp->next && temp->next->flag == 'i')
 				temp->next->flag = 'e';
 			else
 			{
@@ -67,10 +67,10 @@ int	flag_setter(void)
 				return (1);
 			}
 		}
-		else if (ft_strcmp(temp->content, ">>") == 0)
+		if (ft_strcmp(temp->content, ">>") == 0)
 		{
 			temp->flag = 'a';
-			if (temp->next && temp->next->flag == 'o')
+			if (temp->next && temp->next->flag == 't')
 				temp->next->flag = 'p';
 			else
 			{

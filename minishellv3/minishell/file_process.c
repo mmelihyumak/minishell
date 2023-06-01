@@ -3,24 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   file_process.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 03:56:32 by melih             #+#    #+#             */
-/*   Updated: 2023/05/26 16:33:43 by melih            ###   ########.fr       */
+/*   Updated: 2023/06/01 18:32:03 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	open_folder(void)
+void	exec_exit(int i)
 {
-	int	fd;
-
-	//fd = open(g_arg.args[1], O_RDWR);
-	if (fd < 0)
-	{
-		//printf("minishell: %s: No such file or directory\n", g_arg.args[1]);
-		return (0);
-	}
-	return (0);
+	printf("exit\n");
+	if (split_len(g_arg.cmds[0]->cmd_args) > 2)
+		printf("minishell: exit: too many arguments\n");
+	else
+		exit(ft_atoi(g_arg.cmds[0]->cmd_args[1]));
 }

@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 23:41:47 by melih             #+#    #+#             */
-/*   Updated: 2023/05/31 21:13:35 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/01 18:27:31 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,19 +68,18 @@ void	exec_export(int	query)
 	int	i;
 	int	len;
 
-	i = 0;
 	len = split_len(g_arg.cmds[0]->cmd_args);
-	while (++i < len)
-	{
-		if (!is_exportable(g_arg.cmds[0]->cmd_args[i]))
-			printf("minishell: export: ...: not a valid identifier\n");
-	}
 	i = 0;
 	while (++i < len)
 	{
-		put_export(g_arg.cmds[0]->cmd_args[i]);
-		if (!equal_control(g_arg.cmds[0]->cmd_args[i]))
-			put_env(g_arg.cmds[0]->cmd_args[i]);
+		if (is_exportable(g_arg.cmds[0]->cmd_args[i], ft_strlen_equal(g_arg.cmds[0]->cmd_args[i])))
+		{
+			put_export(g_arg.cmds[0]->cmd_args[i]);
+			if (!equal_control(g_arg.cmds[0]->cmd_args[i]))
+				put_env(g_arg.cmds[0]->cmd_args[i]);
+		}
+		else
+			printf("minishell: export: %s: not a valid identifier\n", g_arg.cmds[0]->cmd_args[i]);
 	}
 }
 
@@ -117,8 +116,11 @@ void	put_export(char *value)
 	}
 	else
 	{
-		free(g_arg.exports[index]);
-		g_arg.exports[index] = ft_strdup(value);
+		if (!equal_control(value))
+		{
+			free(g_arg.exports[index]);
+			g_arg.exports[index] = ft_strdup(value);
+		}
 	}
 }
 

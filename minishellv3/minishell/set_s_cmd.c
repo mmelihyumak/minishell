@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_s_cmd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 21:20:33 by melih             #+#    #+#             */
-/*   Updated: 2023/05/25 18:19:48 by melih            ###   ########.fr       */
+/*   Updated: 2023/06/01 19:47:28 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	free_split(char **strings)
 	free(strings);
 }
 
-void	last_of_list(void)
+t_arg_list	*last_of_list(void)
 {
 	t_arg_list	*temp;
 
@@ -81,4 +81,5 @@ void	last_of_list(void)
 	while (temp->next)
 		temp = temp->next;
 	temp->next = NULL;
+	return (temp);
 }

@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:40:29 by melih             #+#    #+#             */
-/*   Updated: 2023/05/31 21:08:01 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/01 18:31:47 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	executor(int i)
 
 int	executor_v2(int i)
 {
-	if (!ft_strcmp("export", g_arg.cmds[i]->cmd_args[0]))
+	if (!ft_strcmp("export", g_arg.cmds[0]->cmd_args[0]))
 	{
 		if (split_len(g_arg.cmds[i]->cmd_args) > 1)
 			exec_export(i);
@@ -48,17 +48,22 @@ int	executor_v2(int i)
 			return (1);
 		return (0);
 	}
-	else if (!ft_strcmp("cd", g_arg.cmds[i]->cmd_args[0]))
+	else if (!ft_strcmp("cd", g_arg.cmds[0]->cmd_args[0]))
 	{
 		exec_cd(i);
 		return (0);
 	}
-	else if (!ft_strcmp("unset", g_arg.cmds[i]->cmd_args[0]))
+	else if (!ft_strcmp("unset", g_arg.cmds[0]->cmd_args[0]))
 	{
 		if (split_len(g_arg.cmds[0]->cmd_args) > 1)
 			exec_unset();
 		else
 			return (2);
+		return (0);
+	}
+	if (!ft_strcmp("exit", g_arg.cmds[0]->cmd_args[0]))
+	{
+		exec_exit(i);
 		return (0);
 	}
 	return (1);

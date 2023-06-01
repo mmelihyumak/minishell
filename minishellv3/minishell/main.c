@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:29 by melih             #+#    #+#             */
-/*   Updated: 2023/05/31 21:05:00 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/01 21:54:29 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ void	set_start(char **envp)
 
 int	routine(void)
 {
+	if (flag_setter())
+		return (1);
+	//print_flags();
 	count_arg();
-	flag_setter();
 	g_arg.paths = ft_strdup(get_variable("PATH"));
 	g_arg.cmd_paths = ft_split(g_arg.paths, ':');
 	g_arg.pwd = ft_strdup(get_variable("PWD"));
@@ -48,6 +50,19 @@ int	routine(void)
 	return (0);
 }
 
+void	print_flags(void)
+{
+	t_arg_list	*temp;
+
+	temp = g_arg.list;
+	while (temp)
+	{
+		printf("content: %s -> flag: %c\n", temp->content, temp->flag);
+		temp = temp->next;
+	}
+	printf("\n\n");
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	set_start(envp);
@@ -60,6 +75,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(g_arg.input);
 			list_init(g_arg.input);
+			//print_flags();
 			if (check_quote(g_arg.input) || pipe_check()
 				|| g_arg.input_ctl == 1)
 			{
@@ -67,7 +83,10 @@ int	main(int argc, char **argv, char **envp)
 				continue ;
 			}
 			if (routine())
+			{
+				free(g_arg.input);
 				continue ;
+			}
 		}
 		else if (*g_arg.input == 0)
 			free(g_arg.input);

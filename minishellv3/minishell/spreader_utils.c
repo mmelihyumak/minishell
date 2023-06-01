@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:25:52 by melih             #+#    #+#             */
-/*   Updated: 2023/05/31 14:55:10 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/01 21:55:14 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,22 +37,46 @@ int	flag_setter(void)
 	while (temp)
 	{
 		if (temp->flag == '>')
-			if (temp->next)
+		{
+			if (temp->next && temp->next->flag == 'o')
 				temp->next->flag = 't';
-		if (temp->flag == '<')
-			if (temp->next)
+			else
+			{
+				printf("minishell: syntax error near unexpected token %s\n", temp->content);
+				return (1);
+			}
+		}
+		else if (temp->flag == '<')
+		{
+			if (temp->next && temp->next->flag == 'o')
 				temp->next->flag = 'i';
-		if (ft_strcmp(temp->content, "<<") == 0)
+			else
+			{
+				printf("minishell: syntax error near unexpected token %s\n", temp->content);
+				return (1);
+			}
+		}
+		else if (ft_strcmp(temp->content, "<<") == 0)
 		{
 			temp->flag = 'h';
-			if (temp->next)
+			if (temp->next && temp->next->flag == 'o')
 				temp->next->flag = 'e';
+			else
+			{
+				printf("minishell: syntax error near unexpected token %s\n", temp->content);
+				return (1);
+			}
 		}
-		if (ft_strcmp(temp->content, ">>") == 0)
+		else if (ft_strcmp(temp->content, ">>") == 0)
 		{
 			temp->flag = 'a';
-			if (temp->next)
+			if (temp->next && temp->next->flag == 'o')
 				temp->next->flag = 'p';
+			else
+			{
+				printf("minishell: syntax error near unexpected token %s\n", temp->content);
+				return (1);
+			}
 		}
 		temp = temp->next;
 	}

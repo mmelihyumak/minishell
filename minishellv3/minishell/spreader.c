@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/10 20:40:29 by melih             #+#    #+#             */
-/*   Updated: 2023/06/02 17:09:15 by muyumak          ###   ########.fr       */
+/*   Created: 2023/06/02 18:41:20 by muyumak           #+#    #+#             */
+/*   Updated: 2023/06/02 19:33:52 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int	executor_v2(int i)
 			return (2);
 		return (0);
 	}
-	if (!ft_strcmp("exit", g_arg.cmds[0]->cmd_args[0]))
-		if (!exec_exit())
+	else if (!ft_strcmp("exit", g_arg.cmds[i]->cmd_args[0]))
+		if (!exec_exit(i))
 			return (0);
 	return (1);
 }
@@ -112,31 +112,5 @@ int	spreader_v3(void)
 	close_heredoc_tubes();
 	close_tubes();
 	wait_process();
-	return (0);
-}
-
-int	spreader(void)
-{
-	t_arg_list	*temp;
-	int			j;
-	int			i;
-
-	temp = g_arg.list;
-	g_arg.pid = malloc(sizeof(pid_t) * (g_arg.pipe_count + 1));
-	if (g_arg.pipe_count > 0)
-		open_pipes();
-	g_arg.commands = malloc(sizeof(char **) * (g_arg.pipe_count + 2));
-	j = -1;
-	while (temp)
-	{
-		i = 0;
-		g_arg.commands[++j] = malloc(sizeof(char *)
-				* (count_cmd_arg(temp) + 1));
-		if (spreader_v2(&temp, j))
-			break ;
-	}
-	g_arg.commands[j + 1] = NULL;
-	if (spreader_v3())
-		return (1);
 	return (0);
 }

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/23 02:25:38 by melih             #+#    #+#             */
-/*   Updated: 2023/06/02 17:11:01 by muyumak          ###   ########.fr       */
+/*   Created: 2023/06/02 18:40:52 by muyumak           #+#    #+#             */
+/*   Updated: 2023/06/02 19:42:04 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,31 +97,5 @@ int	cmd_process(int i)
 			exit(127);
 		}
 	}
-	return (0);
-}
-
-char	*get_cmd(char **paths, char *cmd)
-{
-	char	*command;
-	char	*tmp;
-
-	if (cmd == NULL)
-		return (0);
-	if (paths == NULL || *cmd == '\0')
-	{
-		printf("minishell: %s: command not found\n", cmd);
-		return (0);
-	}
-	while (*paths)
-	{
-		tmp = ft_strjoin(*paths, "/");
-		command = ft_strjoin(tmp, cmd);
-		free(tmp);
-		if (access(command, 0) == 0)
-			return (command);
-		free(command);
-		paths++;
-	}
-	printf("minishell: %s: command not found\n", cmd);
 	return (0);
 }

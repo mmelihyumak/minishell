@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:46 by melih             #+#    #+#             */
-/*   Updated: 2023/06/02 17:07:54 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/02 19:36:58 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <sys/wait.h>
 # include <sys/ioctl.h>
 # include <signal.h>
-# include <dirent.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <limits.h>
@@ -140,7 +139,7 @@ void		exec_unset(void);
 int			check_quote(char *str);
 char		*get_variable(char *str);
 int			is_exportable(char *str, int len);
-int			exec_exit(void);
+int			exec_exit(int x);
 int			filename_control(void);
 int			flag_setter_v2(t_arg_list **temp);
 int			flag_setter_v3(t_arg_list **temp);
@@ -149,7 +148,7 @@ void		print_input(char **strings);
 void		signal_handler(int signal);
 void		set_pwd(char *temp);
 int			is_available_path(char *path);
-
-void		print_flags(void);
+int			spreader_v2(t_arg_list **list, int j);
+int			spreader_v3(void);
 
 #endif

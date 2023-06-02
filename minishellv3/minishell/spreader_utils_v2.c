@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/02 10:13:10 by muyumak           #+#    #+#             */
-/*   Updated: 2023/06/02 10:33:57 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/02 19:30:42 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,31 @@ int	flag_setter_v3(t_arg_list **temp)
 			return (1);
 		}
 	}
+	return (0);
+}
+
+char	*get_cmd(char **paths, char *cmd)
+{
+	char	*command;
+	char	*tmp;
+
+	if (cmd == NULL)
+		return (0);
+	if (paths == NULL || *cmd == '\0')
+	{
+		printf("minishell: %s: command not found\n", cmd);
+		return (0);
+	}
+	while (*paths)
+	{
+		tmp = ft_strjoin(*paths, "/");
+		command = ft_strjoin(tmp, cmd);
+		free(tmp);
+		if (access(command, 0) == 0)
+			return (command);
+		free(command);
+		paths++;
+	}
+	printf("minishell: %s: command not found\n", cmd);
 	return (0);
 }

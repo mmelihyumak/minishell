@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:29 by melih             #+#    #+#             */
-/*   Updated: 2023/06/01 21:54:29 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/02 13:06:01 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,10 @@ int	routine(void)
 {
 	if (flag_setter())
 		return (1);
-	//print_flags();
 	count_arg();
 	g_arg.paths = ft_strdup(get_variable("PATH"));
 	g_arg.cmd_paths = ft_split(g_arg.paths, ':');
-	g_arg.pwd = ft_strdup(get_variable("PWD"));
+	set_pwd(get_variable("HOME"));
 	if (spreader())
 	{
 		refresh_counts();
@@ -48,19 +47,6 @@ int	routine(void)
 	refresh_counts();
 	free(g_arg.input);
 	return (0);
-}
-
-void	print_flags(void)
-{
-	t_arg_list	*temp;
-
-	temp = g_arg.list;
-	while (temp)
-	{
-		printf("content: %s -> flag: %c\n", temp->content, temp->flag);
-		temp = temp->next;
-	}
-	printf("\n\n");
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -75,14 +61,8 @@ int	main(int argc, char **argv, char **envp)
 		{
 			add_history(g_arg.input);
 			list_init(g_arg.input);
-			//print_flags();
 			if (check_quote(g_arg.input) || pipe_check()
-				|| g_arg.input_ctl == 1)
-			{
-				free(g_arg.input);
-				continue ;
-			}
-			if (routine())
+				|| g_arg.input_ctl == 1 || routine())
 			{
 				free(g_arg.input);
 				continue ;

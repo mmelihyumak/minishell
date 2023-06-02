@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 00:57:50 by melih             #+#    #+#             */
-/*   Updated: 2023/06/01 20:03:55 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/02 11:06:26 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	pipe_check(void)
 		last = last->next;
 	if (last->flag == '|')
 	{
-		printf("minishell: syntax error near unexpected token %s\n", last->content);
+		printf("minishell: syntax error near unexpected token %s\n",
+			last->content);
 		return (1);
 	}
 	return (0);
@@ -66,6 +67,20 @@ int	is_exportable(char *str, int len)
 	return (1);
 }
 
+int	filename_control_v2(void)
+{
+	t_arg_list	*temp;
+
+	temp = last_of_list();
+	if (temp->flag == '>' || temp->flag == '<' || temp->flag == '|')
+	{
+		printf("minishell: syntax error near unexpected token %s\n",
+			temp->content);
+		return (1);
+	}
+	return (0);
+}
+
 int	filename_control(void)
 {
 	t_arg_list	*temp;
@@ -76,21 +91,18 @@ int	filename_control(void)
 		if (temp->flag == '<' || temp->flag == '>')
 		{
 			if (!ft_strcmp("<", temp->content) || !ft_strcmp(">", temp->content)
-					|| !ft_strcmp("<<", temp->content)
-					|| !ft_strcmp(">>", temp->content) || !ft_strcmp("|", temp->content))
+				|| !ft_strcmp("<<", temp->content)
+				|| !ft_strcmp(">>", temp->content)
+				|| !ft_strcmp("|", temp->content))
 			{
-				printf("minishell: syntax error near unexpected token %s\n", temp->content);
+				printf("minishell: syntax error near unexpected token %s\n",
+					temp->content);
 				return (1);
 			}
 		}
 		temp = temp->next;
 	}
-	temp = last_of_list();
-	if (temp->flag == '>' || temp->flag == '<' || temp->flag == '|')
-	{
-		printf("minishell: syntax error near unexpected token %s\n", temp->content);
+	if (filename_control_v2())
 		return (1);
-	}
-	perror("c");
 	return (0);
 }

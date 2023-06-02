@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 02:25:38 by melih             #+#    #+#             */
-/*   Updated: 2023/06/01 22:56:36 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/02 13:48:41 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	here_doc_process(t_cmd *command, int hd_id)
 {
 	char	*temp;
-	
+
 	command->heredoc[hd_id].pid = fork();
 	if (command->heredoc[hd_id].pid == 0)
 	{
@@ -25,8 +25,10 @@ void	here_doc_process(t_cmd *command, int hd_id)
 			if (hd_id == command->heredoc_count - 1)
 				close(command->heredoc[hd_id].tubes[0]);
 			command->heredoc[hd_id].input = readline("> ");
-			if (ft_strcmp(command->heredoc[hd_id].input, command->heredoc[hd_id].here_doc_name) == 0 || g_arg.close_process == 1)
-				exit (0);				
+			if (ft_strcmp(command->heredoc[hd_id].input,
+					command->heredoc[hd_id].here_doc_name) == 0
+				|| g_arg.close_process == 1)
+				exit (0);
 			temp = ft_strjoin(command->heredoc[hd_id].input, "\n");
 			if (hd_id == command->heredoc_count - 1)
 				write(command->heredoc[hd_id].tubes[1], temp, ft_strlen(temp));
@@ -73,9 +75,6 @@ void	waited_heredoc(int i)
 
 int	cmd_process(char **envp, int i)
 {
-	int	x;
-
-	x = 1;
 	g_arg.pid[i] = fork();
 	if (g_arg.pid[i] == 0)
 	{
@@ -91,18 +90,15 @@ int	cmd_process(char **envp, int i)
 		else
 			g_arg.cmd = g_arg.cmds[i]->cmd_args[0];
 		if (!g_arg.cmd)
+			exit(127);
+		if (execve(g_arg.cmd, g_arg.cmds[i]->cmd_args, g_arg.env) == -1)
 		{
-			printf("minishell: %s: command not found\n", g_arg.cmds[i]->cmd_args[0]);
+			printf("minishell: %s: command not found\n",
+				g_arg.cmds[i]->cmd_args[0]);
 			exit(127);
 		}
-		execve(g_arg.cmd, g_arg.cmds[i]->cmd_args, g_arg.env);
 	}
 	return (0);
-}
-
-void	print_closing_fd(int fd)
-{
-	printf("closing_fd: %d\n", fd); // Bu fonksiyon silinecek!
 }
 
 char	*get_cmd(char **paths, char *cmd)
@@ -110,8 +106,13 @@ char	*get_cmd(char **paths, char *cmd)
 	char	*command;
 	char	*tmp;
 
-	if (paths == NULL || *cmd == 0)
+	if (cmd == NULL)
 		return (0);
+	if (paths == NULL || *cmd == '\0')
+	{
+		printf("minishell: %s: command not found\n", cmd);
+		return (0);
+	}
 	while (*paths)
 	{
 		tmp = ft_strjoin(*paths, "/");
@@ -122,5 +123,6 @@ char	*get_cmd(char **paths, char *cmd)
 		free(command);
 		paths++;
 	}
+	printf("minishell: %s: command not found\n", cmd);
 	return (0);
 }

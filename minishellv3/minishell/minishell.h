@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:46 by melih             #+#    #+#             */
-/*   Updated: 2023/06/01 19:47:36 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/02 13:29:31 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,13 +81,11 @@ struct s_arg
 	t_arg_list	*list;
 }	g_arg;
 
-void		find_path(char **envp);
 char		*get_cmd(char **paths, char *cmd);
 int			cmd_process(char **envp, int i);
 void		sigquit_voider(int signal);
 void		eof_control(char *line);
 void		sigint_voider(int signal);
-void		find_pwd(char **envp);
 void		ft_lstdelone_v2(t_arg_list **lst);
 void		ft_lstclear_v2(t_arg_list **lst);
 t_arg_list	*ft_lstnew_v2(char *content, char flag);
@@ -122,7 +120,7 @@ void		exec_echo(int j);
 int			ft_strlen_equal(char *arg);
 int			check_envp(char *value);
 int			check_export(char *value);
-void		exec_export(int	query);
+void		exec_export(int query);
 int			equal_control(char *arg);
 void		put_export(char *value);
 void		put_env(char *value);
@@ -142,16 +140,16 @@ void		exec_unset(void);
 int			check_quote(char *str);
 char		*get_variable(char *str);
 int			is_exportable(char *str, int len);
-void		exec_exit(int i);
+int			exec_exit(int i);
 int			filename_control(void);
-
-
+int			flag_setter_v2(t_arg_list **temp);
+int			flag_setter_v3(t_arg_list **temp);
 void		child_signal_handler(int signal);
-
 void		print_input(char **strings);
-void		print_t_cmd(void);
-void		print_closing_fd(int fd);
 void		signal_handler(int signal);
+void		set_pwd(char *temp);
+int			is_available_path(char *path);
+
 void		print_flags(void);
 
 #endif

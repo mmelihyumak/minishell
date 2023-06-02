@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:25:52 by melih             #+#    #+#             */
-/*   Updated: 2023/06/01 22:35:49 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/02 10:19:57 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,48 +36,8 @@ int	flag_setter(void)
 	i = 0;
 	while (temp)
 	{
-		if (temp->flag == '>')
-		{
-			if (temp->next && temp->next->flag == 'o')
-				temp->next->flag = 't';
-			else
-			{
-				printf("minishell: syntax error near unexpected token %s\n", temp->content);
-				return (1);
-			}
-		}
-		if (temp->flag == '<')
-		{
-			if (temp->next && temp->next->flag == 'o')
-				temp->next->flag = 'i';
-			else
-			{
-				printf("minishell: syntax error near unexpected token %s\n", temp->content);
-				return (1);
-			}
-		}
-		if (ft_strcmp(temp->content, "<<") == 0)
-		{
-			temp->flag = 'h';
-			if (temp->next && temp->next->flag == 'i')
-				temp->next->flag = 'e';
-			else
-			{
-				printf("minishell: syntax error near unexpected token %s\n", temp->content);
-				return (1);
-			}
-		}
-		if (ft_strcmp(temp->content, ">>") == 0)
-		{
-			temp->flag = 'a';
-			if (temp->next && temp->next->flag == 't')
-				temp->next->flag = 'p';
-			else
-			{
-				printf("minishell: syntax error near unexpected token %s\n", temp->content);
-				return (1);
-			}
-		}
+		if (flag_setter_v3(&temp) || flag_setter_v2(&temp))
+			return (1);
 		temp = temp->next;
 	}
 	return (0);

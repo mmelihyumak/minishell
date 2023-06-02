@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 15:47:34 by melih             #+#    #+#             */
-/*   Updated: 2023/05/31 21:13:54 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/02 10:40:30 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*get_variable(char *str)
 {
 	int	len;
 	int	i;
-	
+
 	len = ft_strlen(str);
 	i = -1;
 	while (g_arg.env[++i])

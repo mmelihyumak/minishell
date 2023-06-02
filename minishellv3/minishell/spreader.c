@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:40:29 by melih             #+#    #+#             */
-/*   Updated: 2023/06/01 18:31:47 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/02 11:44:22 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,8 @@ int	executor_v2(int i)
 		return (0);
 	}
 	if (!ft_strcmp("exit", g_arg.cmds[0]->cmd_args[0]))
-	{
-		exec_exit(i);
-		return (0);
-	}
+		if (!exec_exit(i))
+			return (0);
 	return (1);
 }
 
@@ -90,18 +88,18 @@ int	spreader_v2(t_arg_list **list, int j)
 			if ((*list)->next)
 				(*list) = (*list)->next;
 			else
-				return(1);
+				return (1);
 		}
 	}
 	else
-		return(1);
+		return (1);
 	return (0);
 }
 
 int	spreader_v3(void)
 {
 	int	i;
-	
+
 	t_cmd_settings();
 	set_tubes();
 	if (set_fds())
@@ -120,8 +118,8 @@ int	spreader_v3(void)
 int	spreader(void)
 {
 	t_arg_list	*temp;
-	int	j;
-	int	i;
+	int			j;
+	int			i;
 
 	temp = g_arg.list;
 	g_arg.pid = malloc(sizeof(pid_t) * (g_arg.pipe_count + 1));
@@ -132,7 +130,8 @@ int	spreader(void)
 	while (temp)
 	{
 		i = 0;
-		g_arg.commands[++j] = malloc(sizeof(char *) * (count_cmd_arg(temp) + 1));
+		g_arg.commands[++j] = malloc(sizeof(char *)
+				* (count_cmd_arg(temp) + 1));
 		if (spreader_v2(&temp, j))
 			break ;
 	}
@@ -140,33 +139,4 @@ int	spreader(void)
 	if (spreader_v3())
 		return (1);
 	return (0);
-}
-
-// ALTTAKİ FONKSİYON SİLİNECEK
-
-void	print_t_cmd(void)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < g_arg.pipe_count + 1)
-	{
-		printf("\n");
-		printf("cmds[%d] infile: %s fd: %d\n", i, g_arg.cmds[i]->infile_name, g_arg.cmds[i]->fd_in);
-		printf("cmds[%d] outfile: %s fd: %d\n", i, g_arg.cmds[i]->outfile_name, g_arg.cmds[i]->fd_out);
-		printf("cmds[%d] heredoc_count: %d\n", i, g_arg.cmds[i]->heredoc_count);
-		printf("cmds[%d] temp_heredoc_count: %d\n", i, g_arg.cmds[i]->tmp_hdcount);
-		j = -1;
-		while (++j < g_arg.cmds[i]->heredoc_count)
-			printf("cmds[%d].heredoc[%d].heredoc_name = %s\n", i, j, g_arg.cmds[i]->heredoc[j].here_doc_name);
-		j = 0;
-		while (g_arg.cmds[i]->cmd_args[j])
-		{
-			printf("cmds[%d] args[%d]: address: %p-> value: %s\n"
-				, i, j, g_arg.cmds[i]->cmd_args, g_arg.cmds[i]->cmd_args[j]);
-			j++;
-		}
-		i++;
-	}
 }

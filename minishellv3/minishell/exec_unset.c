@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_unset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: melih <melih@student.42.fr>                +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 18:21:19 by melih             #+#    #+#             */
-/*   Updated: 2023/05/28 19:05:33 by melih            ###   ########.fr       */
+/*   Updated: 2023/06/02 10:41:25 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	ft_delete_env(char *value)
 {
-	int	index;
-	int	len;
-	int	i;
-	int	j;
+	int		index;
+	int		len;
+	int		i;
+	int		j;
 	char	**temp;
 
 	index = check_envp(value);
@@ -40,10 +40,10 @@ void	ft_delete_env(char *value)
 
 void	ft_delete_export(char *value)
 {
-	int	index;
-	int	len;
-	int	i;
-	int	j;
+	int		index;
+	int		len;
+	int		i;
+	int		j;
 	char	**temp;
 
 	index = check_export(value);

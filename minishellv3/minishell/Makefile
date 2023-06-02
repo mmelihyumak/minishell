@@ -6,7 +6,7 @@ SRCS		=		main.c minishell_exec.c utils_signal.c file_process.c utils_list.c \
 					list_initializer.c utils_modified.c utils_format.c spreader_utils.c \
 					pipe_process.c spreader.c set_s_cmd.c fd_settings.c error_check.c \
 					get_env.c exec_echo.c exec_export.c exec_cd.c  heredoc_settings.c \
-					exec_unset.c
+					exec_unset.c spreader_utils_v2.c utils_export.c
 					
 
 LIBFT		=		-I./libft
@@ -17,7 +17,7 @@ NAME		=		minishell
 
 CC			=		gcc -g
 
-CFLAGS		=		-I./lib/readline/include
+CFLAGS		=		-I./lib/readline/include -fsanitize=address
 
 RM			=		rm -rf
 

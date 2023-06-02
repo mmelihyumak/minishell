@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_signal.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: uyilmaz <uyilmaz@student.42.fr>            +#+  +:+       +#+        */
+/*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 02:43:50 by uyilmaz           #+#    #+#             */
-/*   Updated: 2023/05/31 19:19:25 by uyilmaz          ###   ########.fr       */
+/*   Updated: 2023/06/02 12:14:12 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	sigint_voider(int signal)
 		}
 		write(1, "\n", 1);
 	}
+	g_arg.exit_status = 1;
 	(void)signal;
 }
 

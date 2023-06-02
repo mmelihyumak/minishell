@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 03:49:17 by melih             #+#    #+#             */
-/*   Updated: 2023/06/02 12:09:51 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/02 15:28:51 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	exec_cd(int query)
 			if (is_available_path(g_arg.cmds[0]->cmd_args[1]))
 				return ;
 	}
-	set_pwd(temp);
 }
 
 int	is_available_path(char *path)
@@ -74,7 +73,12 @@ void	set_pwd(char *temp)
 
 	cwd = malloc(sizeof(char) * PATH_MAX);
 	getcwd(cwd, PATH_MAX);
-	temp = ft_strjoin("PWD=", cwd);
+	temp = ft_strjoin("PWD=", cwd);	
+	if (check_envp(temp) != -1)
+	{
+		put_env(temp);
+		put_export(temp);
+	}
 	g_arg.pwd = ft_strdup(temp + 4);
 	free(temp);
 	free(cwd);

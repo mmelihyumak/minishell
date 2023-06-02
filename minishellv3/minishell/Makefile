@@ -17,7 +17,7 @@ NAME		=		minishell
 
 CC			=		gcc -g
 
-CFLAGS		=		-I./lib/readline/include -fsanitize=address
+CFLAGS		=		-I./lib/readline/include #-fsanitize=address
 
 RM			=		rm -rf
 

@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 03:56:32 by melih             #+#    #+#             */
-/*   Updated: 2023/06/02 11:44:16 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/02 15:28:09 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	exec_exit(int i)
 	if (split_len(g_arg.cmds[0]->cmd_args) > 2)
 	{
 		printf("minishell: exit: too many arguments\n");
-		exit(1);
+		g_arg.exit_status = 1;
 	}
 	else if (split_len(g_arg.cmds[0]->cmd_args) == 2)
 	{

@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 23:41:47 by melih             #+#    #+#             */
-/*   Updated: 2023/06/02 10:43:09 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/02 17:06:49 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	check_export(char *value)
 	return (-1);
 }
 
-void	exec_export(int query)
+void	exec_export(void)
 {
 	int	i;
 	int	len;

@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 00:57:50 by melih             #+#    #+#             */
-/*   Updated: 2023/06/02 14:59:52 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/02 16:54:55 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	pipe_check(void)
 	t_arg_list	*last;
 
 	last = g_arg.list;
+	if (last == NULL)
+		return (1);
 	while (last->next)
 		last = last->next;
 	if (last->flag == '|')

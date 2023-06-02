@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:46 by melih             #+#    #+#             */
-/*   Updated: 2023/06/02 13:29:31 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/02 17:07:54 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ struct s_arg
 }	g_arg;
 
 char		*get_cmd(char **paths, char *cmd);
-int			cmd_process(char **envp, int i);
+int			cmd_process(int i);
 void		sigquit_voider(int signal);
 void		eof_control(char *line);
 void		sigint_voider(int signal);
@@ -120,18 +120,18 @@ void		exec_echo(int j);
 int			ft_strlen_equal(char *arg);
 int			check_envp(char *value);
 int			check_export(char *value);
-void		exec_export(int query);
+void		exec_export(void);
 int			equal_control(char *arg);
 void		put_export(char *value);
 void		put_env(char *value);
 void		ft_smart_putstr(char **strings);
 void		set_export(void);
-void		exec_cd(int query);
+void		exec_cd(void);
 void		here_doc_process(t_cmd *command, int hd_id);
 int			ft_strcmp(char *s1, char *s2);
 void		count_heredoc(t_cmd *command);
 void		set_heredocs(void);
-void		open_heredoc(t_cmd *command, int x);
+void		open_heredoc(t_cmd *command);
 void		close_heredoc_tubes(void);
 void		close_other_heredocs(t_cmd *command);
 t_arg_list	*last_of_list(void);
@@ -140,7 +140,7 @@ void		exec_unset(void);
 int			check_quote(char *str);
 char		*get_variable(char *str);
 int			is_exportable(char *str, int len);
-int			exec_exit(int i);
+int			exec_exit(void);
 int			filename_control(void);
 int			flag_setter_v2(t_arg_list **temp);
 int			flag_setter_v3(t_arg_list **temp);

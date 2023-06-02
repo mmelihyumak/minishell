@@ -7,7 +7,6 @@ SRCS		=		main.c minishell_exec.c utils_signal.c file_process.c utils_list.c \
 					pipe_process.c spreader.c set_s_cmd.c fd_settings.c error_check.c \
 					get_env.c exec_echo.c exec_export.c exec_cd.c  heredoc_settings.c \
 					exec_unset.c spreader_utils_v2.c utils_export.c
-					
 
 LIBFT		=		-I./libft
 
@@ -15,36 +14,27 @@ OBJS		=		$(SRCS:.c=.o)
 
 NAME		=		minishell
 
-CC			=		gcc -g
+CC			=		gcc
 
-CFLAGS		=		-I./lib/readline/include #-fsanitize=address
+CFLAGS		=		-Wall -Werror -Wextra
 
 RM			=		rm -rf
 
-all:	$(LIB)	$(NAME) $(LIBFT)
+all:		$(LIBFT) $(NAME) 
 
 $(LIBFT):
-			@echo $(GREEN) "Creating LIBFT..."$(END)
-			@make bonus -C ./libft
+			make bonus -C ./libft
 
-$(NAME):	$(OBJS) $(LIBFT)
-				@echo $(BLUE) "Creating minishell..."$(END)
-				@$(CC) $(CFLAGS) $(OBJS) libft/libft.a -lreadline -o $(NAME)
-				@echo $(GREEN) "Minishell created."$(END)
-
-%.o: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+$(NAME):		$(OBJS) $(LIBFT)
+				$(CC) $(OBJS) $(CFLAGS) libft/libft.a -lreadline -o $(NAME)
 
 clean:
-				@$(RM) $(OBJS)
-				@make clean -C ./libft
-				@echo $(BLUE) "Removing objects..."$(END)
+				$(RM) $(OBJS)
+				make clean -C ./libft
 
-fclean:		clean
-				@echo $(BLUE) "Removing minishell..."$(END)
-				@$(RM) $(NAME)
-			@echo $(BLUE) "Removing libft.a..."$(END)
-			@make fclean -C libft
+fclean:
+				$(RM) $(OBJS) $(NAME)
+				make fclean -C libft
 
 re:			fclean all
 

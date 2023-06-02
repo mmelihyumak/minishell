@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 20:58:05 by uyilmaz           #+#    #+#             */
-/*   Updated: 2023/06/02 10:40:24 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/02 17:06:37 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,9 @@ char	*handle_regular(char *str, int *index)
 	return (result);
 }
 
-void	handle_others(char *str, int *index, char q)
+void	handle_others(char *str, int *index)
 {
 	int		i;
-	int		flag;
 	char	*result;
 
 	result = NULL;
@@ -94,7 +93,6 @@ void	special_handler(char *str, int *index, char q)
 
 int	list_init(char *str)
 {
-	char	*result;
 	int		len;
 	int		i;
 
@@ -108,7 +106,7 @@ int	list_init(char *str)
 		if (str[i] == '>' || str[i] == '<' || str[i] == '|')
 			special_handler(str, &i, str[i]);
 		else if (str[i] && str[i] != ' ')
-			handle_others(str, &i, 'o');
+			handle_others(str, &i);
 	}
 	return (0);
 }

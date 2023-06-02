@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 03:49:17 by melih             #+#    #+#             */
-/*   Updated: 2023/06/02 15:28:51 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/02 17:11:34 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ char	*get_home(void)
 	return (home);
 }
 
-void	exec_cd(int query)
+void	exec_cd(void)
 {
 	char	*temp;
 
-	if ((split_len(g_arg.cmds[0]->cmd_args) == 2
-			&& !ft_strcmp("~", g_arg.cmds[0]->cmd_args[1])
+	if (((split_len(g_arg.cmds[0]->cmd_args) == 2
+				&& !ft_strcmp("~", g_arg.cmds[0]->cmd_args[1]))
 			|| split_len(g_arg.cmds[0]->cmd_args) == 1))
 	{
 		temp = get_home();
@@ -73,7 +73,7 @@ void	set_pwd(char *temp)
 
 	cwd = malloc(sizeof(char) * PATH_MAX);
 	getcwd(cwd, PATH_MAX);
-	temp = ft_strjoin("PWD=", cwd);	
+	temp = ft_strjoin("PWD=", cwd);
 	if (check_envp(temp) != -1)
 	{
 		put_env(temp);

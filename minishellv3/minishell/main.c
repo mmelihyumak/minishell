@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/15 02:20:29 by melih             #+#    #+#             */
-/*   Updated: 2023/06/02 15:21:59 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/02 17:10:24 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int	routine(void)
 
 int	main(int argc, char **argv, char **envp)
 {
+	argc = 0;
+	(void)argv;
 	set_start(envp);
 	while (1)
 	{

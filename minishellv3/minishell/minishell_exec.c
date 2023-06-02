@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 02:25:38 by melih             #+#    #+#             */
-/*   Updated: 2023/06/02 13:48:41 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/02 17:11:01 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	here_doc_process(t_cmd *command, int hd_id)
 	command->heredoc[hd_id].pid = fork();
 	if (command->heredoc[hd_id].pid == 0)
 	{
-		//signal(SIGUSR2, child_signal_handler);
 		while (1)
 		{
 			if (hd_id == command->heredoc_count - 1)
@@ -38,7 +37,7 @@ void	here_doc_process(t_cmd *command, int hd_id)
 	}
 }
 
-void	open_heredoc(t_cmd *command, int x)
+void	open_heredoc(t_cmd *command)
 {
 	int	i;
 
@@ -68,12 +67,12 @@ void	waited_heredoc(int i)
 		x++;
 	}
 	if (g_arg.cmds[i]->heredoc_count != 0)
-		open_heredoc(g_arg.cmds[i], i);
+		open_heredoc(g_arg.cmds[i]);
 	else
 		close_heredoc_tubes();
 }
 
-int	cmd_process(char **envp, int i)
+int	cmd_process(int i)
 {
 	g_arg.pid[i] = fork();
 	if (g_arg.pid[i] == 0)

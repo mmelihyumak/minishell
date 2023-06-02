@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/08 02:04:40 by melih             #+#    #+#             */
-/*   Updated: 2023/05/11 05:12:14 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/02 17:08:24 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	count_heredoc(t_cmd *command)
 	command->tmp_hdcount = command->heredoc_count;
 }
 
-void	set_heredoc_name(t_cmd *command)
+void	set_heredoc_name(void)
 {
 	t_arg_list	*temp;
 	int			i;
@@ -108,5 +108,5 @@ void	set_heredocs(void)
 			[g_arg.cmds[i]->heredoc_count - 1].tubes[0];
 		}
 	}
-	set_heredoc_name(g_arg.cmds[i]);
+	set_heredoc_name();
 }

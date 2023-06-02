@@ -6,13 +6,13 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 03:56:32 by melih             #+#    #+#             */
-/*   Updated: 2023/06/02 15:28:09 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/02 17:05:10 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	exec_exit(int i)
+int	exec_exit(void)
 {
 	int	x;
 

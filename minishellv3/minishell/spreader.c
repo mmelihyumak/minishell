@@ -6,7 +6,7 @@
 /*   By: muyumak <muyumak@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 20:40:29 by melih             #+#    #+#             */
-/*   Updated: 2023/06/02 11:44:22 by muyumak          ###   ########.fr       */
+/*   Updated: 2023/06/02 17:09:15 by muyumak          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,14 @@ int	executor_v2(int i)
 	if (!ft_strcmp("export", g_arg.cmds[0]->cmd_args[0]))
 	{
 		if (split_len(g_arg.cmds[i]->cmd_args) > 1)
-			exec_export(i);
+			exec_export();
 		else
 			return (1);
 		return (0);
 	}
 	else if (!ft_strcmp("cd", g_arg.cmds[0]->cmd_args[0]))
 	{
-		exec_cd(i);
+		exec_cd();
 		return (0);
 	}
 	else if (!ft_strcmp("unset", g_arg.cmds[0]->cmd_args[0]))
@@ -62,7 +62,7 @@ int	executor_v2(int i)
 		return (0);
 	}
 	if (!ft_strcmp("exit", g_arg.cmds[0]->cmd_args[0]))
-		if (!exec_exit(i))
+		if (!exec_exit())
 			return (0);
 	return (1);
 }
@@ -108,7 +108,7 @@ int	spreader_v3(void)
 	i = -1;
 	while (++i < g_arg.pipe_count + 1)
 		if (executor_v2(i) == 1)
-			cmd_process(g_arg.env, i);
+			cmd_process(i);
 	close_heredoc_tubes();
 	close_tubes();
 	wait_process();
